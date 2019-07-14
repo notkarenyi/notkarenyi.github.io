@@ -219,6 +219,9 @@ input[type=submit] {
     body {
         max-width: 700px;
     }
+    .column {
+        width: 100%;
+    }
 }
 
 /*add menu collapser thing for mobile and other media rules*/
