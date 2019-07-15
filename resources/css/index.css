@@ -6,7 +6,6 @@ html {
 body {
     margin: 0;
     padding: 0;
-    max-height: 100%;
 }
 
 .container {
@@ -228,9 +227,6 @@ input[type=submit] {
     }
     .column {
         width: 100%;
-    }
-    nav {
-        display: none;
     }
 }
 
