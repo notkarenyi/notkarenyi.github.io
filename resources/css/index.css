@@ -17,6 +17,7 @@ body {
 
 .content {
     margin-top: 6rem;
+    min-height: 100%;
 }
 
 header {
