@@ -138,12 +138,7 @@ footer {
     color: white;
     font-size: 1.25em;
     text-align: right;
-    text-decoration: none;
     z-index: 500;
-}
-
-footer a:active, footer a:hover, footer a:focus {
-    color: rgb(224, 128, 157);
 }
 
 footer span {
