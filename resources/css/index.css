@@ -238,7 +238,7 @@ input[type=submit] {
 /*awkward height fix*/
 .inverse {
     background-color: rgb(240, 162, 186);
-    height: 100vh;
+    height: calc(100vh - 6em);
     min-height: 350px;
 }
 
