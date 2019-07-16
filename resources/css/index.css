@@ -25,15 +25,15 @@ header {
     background-color: black;
     top: 0;
     width: 100%;
-    height: 3em;
-    font-size: 2rem;
+    height: 4.8em;
+    font-size: 1.25rem;
 }
 
 #title {
     position: relative;
     display: inline-block;
-    font-size: 1.25em;
-    letter-spacing: .125rem;
+    font-size: 2em;
+    letter-spacing: .375rem;
     font-family: "Cabin Sketch", sans-serif;
     color: white;
     top: 0;
@@ -47,7 +47,7 @@ nav {
     display: block;
     float: right;
     list-style-type: none;
-    font-size: 0.75em;
+    font-size: 1.1em;
     text-align: right;
     top: 0;
     right: 2rem;
@@ -229,8 +229,8 @@ footer a:active, footer a:hover, footer a:focus {
         font-size: 1rem;
     }
 
-    header {
-        font-size: 1.375rem;
+    header, footer {
+        font-size: .625rem;
     }
 
     .container {
@@ -249,13 +249,6 @@ footer a:active, footer a:hover, footer a:focus {
         display: none;
     }
 
-    header {
-        height: 3rem;
-    }
-    
-    footer {
-        font-size: .625rem;
-    }
 }
 
 /*add menu collapser thing for mobile and other media rules*/
