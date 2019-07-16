@@ -17,7 +17,7 @@ body {
 }
 
 .content {
-    min-height: 100vh;
+    min-height: calc(100vh - 6em);
     margin-top: 3em;
     padding-bottom: 3em;
 }
@@ -227,7 +227,7 @@ input[type=submit] {
     text-decoration: none;
     display: inline-block;
     text-align: center;
-    font-family: "Cabin Sketch," sans-serif;
+    font-family: "Cabin Sketch", sans-serif;
 }
 
 .button:active, .button:hover, .button:focus {
