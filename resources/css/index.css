@@ -156,7 +156,7 @@ article h3 {
     word-wrap: break-word;
 }
 
-p, li {
+p, article li {
     font-family: "Vollkorn", serif;
     color: black;
     background-color: white;
