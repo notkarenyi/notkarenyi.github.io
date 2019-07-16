@@ -139,6 +139,7 @@ footer {
     font-size: 1.25em;
     text-align: right;
     z-index: 500;
+    text-decoration: none;
 }
 
 footer span {
@@ -146,6 +147,9 @@ footer span {
     width: 2%;
 }
 
+footer a:active, footer a:hover, footer a:focus {
+    color: rgb(238, 64, 116);
+}
 
 article {
     display: block;
