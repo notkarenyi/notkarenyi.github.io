@@ -6,16 +6,18 @@ html {
 body {
     margin: 0;
     padding: 0;
+    background-color: black;
 }
 
 .container {
     min-height: 100%;
     position: relative;
-    padding-bottom: 6rem;
+    padding-bottom: 3em;
+    font-size: 2rem;
 }
 
 .content {
-    margin-top: 6rem;
+    margin-top: 3em;
 }
 
 header {
@@ -129,25 +131,26 @@ article {
     display: block;
     top: 0;
     max-width: 90%;
-    margin: 4rem;
+    margin: 2em;
+    font-size: 2rem;
 }
 
 article h2 {
     font-family: "Cabin Sketch", sans-serif;
-    font-size: 1.75rem;
-    line-height: 3.5rem;
+    font-size: 1em;
+    line-height: 2em;
     color: black;
     background-color: rgb(240, 162, 186);
     padding: 0 0 0 1rem;
-    margin: 0 0 2rem 0;
-    width: 5rem;
+    margin: 0 0 1em 0;
+    width: 2em;
 }
 
 p {
     font-family: "Vollkorn", serif;
     color: black;
     background-color: white;
-    font-size: 1rem;
+    font-size: 0.5rem;
     margin: 0 1rem 2rem 0;
     word-wrap: break-word;
 }
@@ -169,14 +172,14 @@ article img {
 }
 
 form {
-    margin: 3.6rem;
+    margin: 2em auto;
     padding: 0;
     display: block;
-    float: right;
+    position: absolute
 }
 
 input, textarea {
-    font-size: 1rem;
+    font-size: 0.5em;
     font-family: "Vollkorn", serif;
     color: black;
     width: 100%;
@@ -225,7 +228,7 @@ footer a:active, footer a:hover, footer a:focus {
         max-width: 700px;
     }
     
-    .box-link {
+    article, .box-link {
         font-size: 1rem;
     }
 
