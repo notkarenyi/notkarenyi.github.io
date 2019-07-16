@@ -146,7 +146,17 @@ article h2 {
     width: 2em;
 }
 
-p {
+article h3 {
+    font-family: "Vollkorn", serif;
+    color: black;
+    background-color: white;
+    font-size: 0.75em;
+    font-weight: 700;
+    margin: 0 1rem 2rem 0;
+    word-wrap: break-word;
+}
+
+p, li {
     font-family: "Vollkorn", serif;
     color: black;
     background-color: white;
@@ -159,6 +169,7 @@ article a {
     font-weight: 600;
     color: rgb(238, 64, 116);
     text-decoration: none;
+    font-size: 0.5em;
 }
 
 article a:hover, article a:active, article a:focus {
