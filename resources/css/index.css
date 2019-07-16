@@ -145,7 +145,7 @@ article h2 {
     background-color: rgb(240, 162, 186);
     padding: 0 0 0 1rem;
     margin: 0 0 1em 0;
-    width: 2em;
+    width: 50%;
 }
 
 h3 {
@@ -154,7 +154,7 @@ h3 {
     background-color: white;
     font-size: 0.75em;
     font-weight: 700;
-    margin: 0 1rem 2rem 0;
+    margin: 0 1rem 1rem 0;
     word-wrap: break-word;
 }
 
@@ -176,6 +176,14 @@ article a {
 
 article a:hover, article a:active, article a:focus {
     border-bottom: .125rem solid rgb(238, 64, 116);
+}
+
+article li a {
+    font-size: 1em;
+}
+ 
+article li {
+     margin: 0.5em;
 }
 
 article img {
@@ -243,6 +251,7 @@ input[type=submit] {
 }
 
 .inverse h3{
+    background-color: rgb(240, 162, 186);
     color: white;
 }
 
