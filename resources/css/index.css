@@ -204,6 +204,17 @@ input[type=submit] {
     display: inline-block;
 }
 
+.button {
+    padding: 2em;
+    margin: 1em;
+    font-size: 1em;
+    background-color: rgb(240, 162, 186);
+    color: black;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+}
+
 footer {
     position: absolute;
     bottom: 0;
