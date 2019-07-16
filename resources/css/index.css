@@ -135,16 +135,19 @@ footer {
     height: 6em;
     line-height: 6em;
     background-color: rgb(0, 0, 0);
-    color: white;
     font-size: 1.25em;
     text-align: right;
     z-index: 500;
-    text-decoration: none;
 }
 
 footer span {
     display: inline-block;
     width: 2%;
+}
+
+footer a {
+    text-decoration: none;
+    color: white;
 }
 
 footer a:active, footer a:hover, footer a:focus {
