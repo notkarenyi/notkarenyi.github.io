@@ -11,7 +11,7 @@ body {
 .container {
     min-height: 100%;
     position: relative;
-    padding-bottom: 7.4em;
+    padding-bottom: 6rem;
 }
 
 .content {
@@ -24,22 +24,22 @@ header {
     position: fixed;
     background-color: black;
     top: 0;
-    left: 0;
     width: 100%;
-    height: 6.05em;
+    height: 3em;
+    font-size: 2rem;
 }
 
 #title {
     position: relative;
     display: inline-block;
-    font-size: 2.5em;
-    letter-spacing: .125em;
+    font-size: 1.25em;
+    letter-spacing: .125rem;
     font-family: "Cabin Sketch", sans-serif;
     color: white;
     top: 0;
-    height: 2.5em;
-    line-height: 2.5em;
-    margin: 0 0 0 2rem;
+    height: 2.4em;
+    line-height: 2.4em;
+    margin: 0 0 0 1em;
 }
 
 nav {
@@ -47,12 +47,10 @@ nav {
     display: block;
     float: right;
     list-style-type: none;
-    font-size: 1.5em;
+    font-size: 0.75em;
     text-align: right;
     top: 0;
-    right: 2em;
-    height: 0.5em;
-    line-height: 0.5em;
+    right: 2rem;
 }
 
 nav a {
@@ -62,7 +60,7 @@ nav a {
 
 nav li {
     display: inline-block;
-    padding: 1rem;
+    padding: 0.5rem 1rem;
 }
 
 nav a:hover, nav a:active, nav a:focus {
@@ -105,15 +103,15 @@ nav a:hover, nav a:active, nav a:focus {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    z-index: 200;
     font-family: "Cabin Sketch", sans-serif;
-    font-size: 2rem;
-    letter-spacing: .2rem;
     text-decoration: none;
     color: black;
     background-color: rgba(255, 255, 255, 0.75);
-    line-height: 2rem;
+    line-height: 1em;
+    font-size: 2rem;
+    letter-spacing: .2rem;
     padding: 0.75rem 0;
+    z-index: 200;
 }
 
 .box a:hover, .box a:active, .box a:focus {
@@ -200,10 +198,10 @@ footer {
     bottom: 0;
     margin: 0;
     width: 100%;
-    height: 6em;
-    line-height: 6em;
+    height: 4.8em;
+    line-height: 4.8em;
     background-color: rgb(0, 0, 0);
-    font-size: 1.25em;
+    font-size: 1.25rem;
     text-align: right;
     z-index: 500;
 }
@@ -226,9 +224,21 @@ footer a:active, footer a:hover, footer a:focus {
     body {
         max-width: 700px;
     }
+    
+    .box-link {
+        font-size: 1rem;
+    }
+
+    header {
+        font-size: 1.375rem;
+    }
 
     .container {
-        padding-bottom: 3em;
+        padding-bottom: 3rem;
+    }
+    
+    .content {
+        margin-top: 3rem;
     }
 
     .column {
@@ -239,8 +249,12 @@ footer a:active, footer a:hover, footer a:focus {
         display: none;
     }
 
-    header, footer {
-        height: 3em;
+    header {
+        height: 3rem;
+    }
+    
+    footer {
+        font-size: .625rem;
     }
 }
 
