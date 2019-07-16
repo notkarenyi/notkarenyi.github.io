@@ -130,8 +130,8 @@ nav a:hover, nav a:active, nav a:focus {
 article {
     display: block;
     top: 0;
-    max-width: 90%;
-    margin: 2em;
+    max-width: 80%;
+    margin: 2em auto;
     font-size: 2rem;
 }
 
@@ -150,7 +150,7 @@ p {
     font-family: "Vollkorn", serif;
     color: black;
     background-color: white;
-    font-size: 0.5rem;
+    font-size: 0.5em;
     margin: 0 1rem 2rem 0;
     word-wrap: break-word;
 }
@@ -172,28 +172,33 @@ article img {
 }
 
 form {
-    margin: 2em auto;
+    margin: 1.75em auto;
     padding: 0;
-    display: block;
-    position: absolute
+    display: inline-block;
+    font-size: 2rem;
+    max-width: 80%;    
+    width: 20em;
 }
 
 input, textarea {
     font-size: 0.5em;
     font-family: "Vollkorn", serif;
     color: black;
-    width: 100%;
+    width: 90%;
     padding: 0.5rem;
-    margin: 0.5rem;
+    margin: 0.5em 0;
     border: .125rem solid rgb(195, 195, 195);
 }
 
 input[type=submit] {
     background-color: rgb(240, 162, 186);
-    font-size: 1.25rem;
-    height: 3rem;
-    width: 104%;
+    font-size: 0.75em;
+    height: 3em;
+    width: 94%;
     border: none;
+    margin: 0.25em auto;
+    padding: 0;
+    display: inline-block;
 }
 
 footer {
@@ -228,7 +233,7 @@ footer a:active, footer a:hover, footer a:focus {
         max-width: 700px;
     }
     
-    article, .box-link {
+    article, form, .box-link {
         font-size: 1rem;
     }
 
@@ -252,6 +257,10 @@ footer a:active, footer a:hover, footer a:focus {
         display: none;
     }
 
+    /*sad workaround*/
+    input[type=submit] {
+        width: 106%;
+    }
 }
 
 /*add menu collapser thing for mobile and other media rules*/
