@@ -171,13 +171,16 @@ article img {
     height: auto;
 }
 
+.form {
+    display: inline-block;
+    max-width: 80%;    
+}
+
 form {
     margin: 1.75em auto;
     padding: 0;
-    display: inline-block;
+    display: inline;
     font-size: 2rem;
-    max-width: 80%;    
-    width: 20em;
 }
 
 input, textarea {
@@ -259,7 +262,7 @@ footer a:active, footer a:hover, footer a:focus {
 
     /*sad workaround*/
     input[type=submit] {
-        width: 106%;
+        width: 100%;
     }
 }
 
