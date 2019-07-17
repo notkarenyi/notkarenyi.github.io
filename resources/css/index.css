@@ -278,13 +278,10 @@ footer {
     z-index: 500;
 }
 
-footer span {
-    display: inline-block;
-    width: 2%;
-}
-
 .social-media {
-    width: 2em;
+    width: 2em !important;
+    margin: 1.4em 1.4em 0 0;
+    float: right;
 }
 
 footer a:active, footer a:hover, footer a:focus {
@@ -301,15 +298,12 @@ footer a:active, footer a:hover, footer a:focus {
     }
 
     header, footer {
-        font-size: 1rem;
-    }
-
-    .container {
-        padding-bottom: 3rem;
+        font-size: 0.75rem;
     }
     
     main {
-        margin-top: 3rem;
+        margin-top: 3.6rem;
+        padding-bottom: 3.6rem;
     }
 
     .column {
