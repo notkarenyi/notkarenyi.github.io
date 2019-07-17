@@ -129,6 +129,10 @@ nav a:hover, nav a:active, nav a:focus {
     width: 100%;
 }
 
+.banner {
+    text-align: center;
+}
+
 article {
     display: block;
     top: 0;
@@ -279,12 +283,12 @@ footer {
 }
 
 .social-media {
-    width: 2em !important;
-    margin: 1.4em 1.4em 0 0;
+    width: 1.75em !important;
+    margin: 1.5em 1.5em 0 0;
     float: right;
 }
 
-footer a:active, footer a:hover, footer a:focus {
+.social-media:active, .social-media:hover, .social-media:focus {
     opacity: 0.5;
 }
 
