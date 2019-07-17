@@ -283,9 +283,8 @@ footer span {
     width: 2%;
 }
 
-footer img {
+.social-media {
     width: 2em;
-    margin: 1em;
 }
 
 footer a:active, footer a:hover, footer a:focus {
@@ -298,11 +297,11 @@ footer a:active, footer a:hover, footer a:focus {
     }
     
     article, form, .box-link {
-        font-size: 1rem;
+        font-size: 1.5rem;
     }
 
     header, footer {
-        font-size: .625rem;
+        font-size: 1rem;
     }
 
     .container {
