@@ -131,6 +131,7 @@ nav a:hover, nav a:active, nav a:focus {
 
 .banner {
     text-align: center;
+    width: 100% !important;
 }
 
 article {
