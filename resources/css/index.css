@@ -143,19 +143,14 @@ article {
 }
 
 article .box {
-    width: 60%;
+    width: 50%;
+    margin-bottom: 1rem;
 }
 
-/*article h2 {
-    font-family: "Cabin Sketch", sans-serif;
-    font-size: 1em;
-    line-height: 2em;
-    color: black;
-    background-color: rgb(240, 162, 186);
-    padding: 0 0 0 1rem;
-    margin: 0 0 1em 0;
-    width: 70%;
-}*/
+article h2 {
+    margin: 0;
+    background-color: none;
+}
 
 h3 {
     font-family: "Vollkorn", serif;
