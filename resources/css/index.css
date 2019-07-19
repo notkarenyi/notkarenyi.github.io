@@ -100,7 +100,7 @@ nav a:hover, nav a:active, nav a:focus {
     text-align: center;
 }
 
-.box-link {
+.box-link, article h2 {
     display: block;
     position: absolute;
     width: 100%;
@@ -142,7 +142,11 @@ article {
     font-size: 2rem;
 }
 
-article h2 {
+article .box {
+    width: 60%;
+}
+
+/*article h2 {
     font-family: "Cabin Sketch", sans-serif;
     font-size: 1em;
     line-height: 2em;
@@ -151,7 +155,7 @@ article h2 {
     padding: 0 0 0 1rem;
     margin: 0 0 1em 0;
     width: 70%;
-}
+}*/
 
 h3 {
     font-family: "Vollkorn", serif;
