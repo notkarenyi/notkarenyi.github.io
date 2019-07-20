@@ -269,12 +269,12 @@ input[type=submit] {
     border: none;
 }
 
-#gallery img {
+.gallery img {
     width: 100%;
     display: block;
 }
 
-#gallery .column {
+.gallery .column {
     width: 33.3333333%;
 }
 
@@ -321,7 +321,7 @@ footer {
     }
 
     .column {
-        width: 100%;
+        width: 100% !important;
         height: auto;
     }
 
