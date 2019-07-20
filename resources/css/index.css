@@ -143,13 +143,12 @@ article {
 }
 
 article .box {
-    width: 50%;
     margin-bottom: 1rem;
 }
 
 article h2 {
     margin: 0;
-    background-color: none;
+    background-color: transparent;
 }
 
 h3 {
