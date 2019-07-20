@@ -100,7 +100,7 @@ nav a:hover, nav a:active, nav a:focus {
     text-align: center;
 }
 
-.box-link, article h2 {
+.box-link, h2 {
     display: block;
     position: absolute;
     width: 100%;
@@ -122,7 +122,7 @@ nav a:hover, nav a:active, nav a:focus {
     background-color: rgba(255, 255, 255, 1);
 }
 
-.box img, .fancy-heading {
+.box img {
     display: block;
     position: relative;
     z-index: 100;
@@ -255,7 +255,7 @@ input[type=submit] {
 }
 
 .inverse h3{
-    background-color: rgb(240, 162, 186);
+    background-color: rgb(240, 162, 186) !important;
     color: white;
 }
 
@@ -276,6 +276,12 @@ input[type=submit] {
 
 .gallery .column {
     width: 33.3333333%;
+    background-color: black;
+}
+
+.gallery h3 {
+    line-height: 4rem;
+    height: 4rem;
 }
 
 footer {
@@ -337,3 +343,4 @@ footer {
 
 /*add menu collapser thing for mobile and other media rules*/
 /*add javascript style gallery so images don't take so long to load*/
+/*add disclaimer in footer or on hover of certain images (unaffiliated w/ converse etc.)*/
