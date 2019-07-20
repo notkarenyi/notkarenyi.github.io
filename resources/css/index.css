@@ -279,9 +279,11 @@ input[type=submit] {
     background-color: black;
 }
 
-.gallery h3 {
-    line-height: 4rem;
-    height: 4rem;
+.gallery .inverse {
+    line-height: 5em;
+    height: 5em;
+    min-height: 0;
+    font-size: 2em;
 }
 
 footer {
