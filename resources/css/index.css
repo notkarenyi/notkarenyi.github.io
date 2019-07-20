@@ -158,8 +158,12 @@ h3 {
     background-color: white;
     font-size: 0.75em;
     font-weight: 700;
-    margin: 1rem 0 0 0;
+    margin: 0.5rem 0 0 0;
     word-wrap: break-word;
+}
+
+.banner h3 {
+    margin: 4em 0 0 0;
 }
 
 p, article li {
@@ -269,14 +273,12 @@ input[type=submit] {
     border: none;
 }
 
-.gallery img {
-    width: 100%;
-    display: block;
+.gallery {
+    background-color: black;
 }
 
-.gallery .column {
-    width: 33.3333333%;
-    background-color: black;
+.gallery h3 {
+    margin: 0;
 }
 
 .gallery .inverse {
@@ -284,6 +286,15 @@ input[type=submit] {
     height: 5em;
     min-height: 0;
     font-size: 2em;
+}
+
+.gallery img {
+    width: 100%;
+    display: block;
+}
+
+.gallery .column {
+    width: 33.3333333%;
 }
 
 footer {
