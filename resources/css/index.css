@@ -269,6 +269,11 @@ input[type=submit] {
     border: none;
 }
 
+#gallery img {
+    width: 100%;
+    display: block;
+}
+
 footer {
     position: absolute;
     margin: 0;
@@ -327,3 +332,4 @@ footer {
 }
 
 /*add menu collapser thing for mobile and other media rules*/
+/*add javascript style gallery so images don't take so long to load*/
