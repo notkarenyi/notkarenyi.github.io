@@ -148,9 +148,16 @@ article {
     font-size: 2rem;
 }
 
-article figure {
+article figure, article .box {
     margin-bottom: 1.5rem;
     width: 50%;
+}
+
+
+article img {
+    position: relative;
+    display: block;
+    height: auto;
 }
 
 article h2 {
@@ -199,12 +206,6 @@ article a {
 
 article a:hover, article a:active, article a:focus {
     border-bottom: .125rem solid rgb(238, 64, 116);
-}
-
-article img, article .box {
-    position: relative;
-    display: block;
-    height: auto;
 }
 
 .form {
