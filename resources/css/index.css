@@ -97,7 +97,7 @@ nav a:hover, nav a:active, nav a:focus {
     width: 50%;
 }
 
-figure {
+figure, .box {
     display: block;
     position: relative;
     z-index: 100;
@@ -217,25 +217,26 @@ form {
     margin: 0 auto;
     display: inline;
     font-size: 2rem;
-    -webkit-appearance: none;
+    -webkit-appearance: none !important;
+    -moz-appearance: none;
 }
 
 input, textarea {
     font-size: 0.5em;
-    font-family: "Vollkorn", serif;
+    font-family: "Vollkorn", serif !important;
     color: black;
     width: 90%;
     padding: 0.5rem;
     margin: 0.5em 0;
-    border: .125rem solid rgb(195, 195, 195);
+    border: .125rem solid rgb(195, 195, 195) !important;
 }
 
 input[type=submit] {
-    background-color: rgb(240, 162, 186);
+    background-color: rgb(240, 162, 186) !important;
     font-size: 0.75em;
     height: 3em;
     width: 94%;
-    border: none;
+    border: none !important;
     margin: 0.25em auto;
     padding: 0;
     display: inline-block;
