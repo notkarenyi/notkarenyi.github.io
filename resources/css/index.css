@@ -326,7 +326,7 @@ footer {
 }
 
 .social-media:active, .social-media:hover, .social-media:focus {
-    opacity: 0.5;
+    opacity: 0.6;
 }
 
 @media only screen and (max-width: 700px) {
@@ -368,3 +368,4 @@ footer {
 /*add disclaimer in footer or on hover of certain images (unaffiliated w/ converse etc.)*/
 /*add highlight when mousing over image on homepage*/
 /*add #ids and more rows to homepage*/
+/*make girl-sunset and shoe picture larger, then code in overflow in box*/
