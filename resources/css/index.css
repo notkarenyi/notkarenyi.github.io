@@ -7,77 +7,64 @@ body {
     margin: 0;
     padding: 0;
     background-color: black;
+    font-size: 16px;
 }
 
 .container {
     min-height: 100%;
     position: relative;
-    font-size: 2rem;
     background-color: white;
 }
 
 main {
     min-height: calc(100vh - 6em);
-    margin-top: 3em;
-    padding-bottom: 3em;
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 6em 0;
 }
 
 header {
     z-index: 500;
-    display: block;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
     position: fixed;
     background-color: black;
     top: 0;
     width: 100%;
-    height: 4.8em;
-    font-size: 14px;
+    height: 4em;
 }
 
-#title {
-    position: relative;
-    display: inline-block;
-    font-size: 30px;
+#title, #title a {
+    font-size: 24px;
     letter-spacing: .375rem;
     font-family: "Readex Pro", sans-serif;
-    top: 0;
-    height: 2.4em;
-    line-height: 2.4em;
-    margin: 0 0 0 1em;
-}
-
-#title a {
+    margin-left: 2rem;
     text-decoration: none;
     color: white;
-
 }
 
 nav {
-    position: relative;
-    display: block;
-    float: right;
-    list-style-type: none;
-    font-size: 16px;
-    text-align: right;
-    top: 0;
-    right: 2rem;
+    display: flex;
+    flex-direction: row;
+    font-size: 18px;
 }
 
 nav a {
     text-decoration: none;
+    padding-bottom: 6px;
+    height: 1rem;
+    margin: 1.5rem 1rem;
     color: white;
 }
 
-nav li {
-    display: inline-block;
-    padding: 0.5rem 1rem;
-}
-
 nav a:hover, nav a:active, nav a:focus {
-    border-bottom: .375rem solid rgb(224, 128, 157);
+    border-bottom: .3rem solid rgb(100, 100, 200);
 }
 
 .current {
-    border-bottom: .375rem solid rgb(238, 64, 116);
+    border-bottom: .3rem solid rgb(150, 150, 250);
 }
 
 .row {
@@ -92,7 +79,7 @@ nav a:hover, nav a:active, nav a:focus {
     clear: both;
 }
 
-.column {
+.card, .column {
     float: left;
     width: 50%;
 }
@@ -106,22 +93,13 @@ figure, .box {
     margin: 0;
 }
 
-.figure-link, h2 {
-    display: block;
-    position: absolute;
-    width: 100%;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-family: "Cabin Sketch", sans-serif;
-    text-decoration: none;
+h2 {
+    font-family: "Readex Pro", sans-serif;
     color: black;
-    background-color: rgba(255, 255, 255, 0.75);
     line-height: 1em;
-    font-size: 2rem;
-    letter-spacing: .2rem;
-    padding: 0.75rem 0;
-    z-index: 200;
+    letter-spacing: 1px;
+    font-size: 26px;
+    margin-top: 2rem;
 }
 
 .figure-link:hover, .figure-link:active, .figure-link:focus {
@@ -169,7 +147,6 @@ h3 {
     font-family: "Vollkorn", serif;
     color: black;
     background-color: white;
-    font-size: 0.75em;
     font-weight: 700;
     margin: 0.5rem 0 1rem 0;
     word-wrap: break-word;
@@ -183,8 +160,7 @@ p, article li {
     font-family: "Vollkorn", serif;
     color: black;
     background-color: white;
-    font-size: 0.5em;
-    margin: 0 1rem 2rem 0;
+    margin: 0 1rem 1rem 0;
     word-wrap: break-word;
 }
  
@@ -199,13 +175,13 @@ article ul {
 
 article a {
     font-weight: 600;
-    color: rgb(238, 64, 116);
+    color: rgb(100, 100, 200);
     text-decoration: none;
     font-size: 1em;
 }
 
 article a:hover, article a:active, article a:focus {
-    border-bottom: .125rem solid rgb(238, 64, 116);
+    border-bottom: .125rem solid rgb(150, 150, 250);
 }
 
 .form {
@@ -233,7 +209,7 @@ input, textarea {
 }
 
 input[type=submit] {
-    background-color: rgb(240, 162, 186) !important;
+    background-color: rgb(100, 100, 200) !important;
     font-size: 0.75em;
     height: 3em;
     width: 94%;
@@ -247,7 +223,7 @@ input[type=submit] {
     padding: 1em 2em;
     margin: 1em;
     font-size: 0.75em;
-    background-color: rgb(240, 162, 186);
+    background-color: rgb(100, 100, 200);
     color: black;
     text-decoration: none;
     display: inline-block;
@@ -256,54 +232,53 @@ input[type=submit] {
 }
 
 .button:active, .button:hover, .button:focus {
-    background-color: rgba(240, 162, 186, 0.65);
+    background-color: rgb(150, 150, 250);
     border: none;
+}
+
+.skills {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+.skills p {
+    background-color: rgb(100, 100, 200);
+    color: white;
+    border-radius: 15px;
+    padding: 0.25rem 0.75rem;
+    margin-bottom: 1rem;
+    margin-right: 0.5rem;
 }
 
 /*awkward height fix*/
-.inverse {
-    background-color: rgb(240, 162, 186);
-    height: calc(100vh - 6em);
-    min-height: 350px;
-}
-
-.inverse h3{
-    background-color: rgb(240, 162, 186) !important;
-    color: white;
-}
-
-.inverse .button {
-    color: white;
-    background-color: black;
-}
-
-.inverse .button:active, .inverse .button:hover, .inverse .button:focus {
-    background-color: rgba(0, 0, 0, 0.65);
-    border: none;
-}
 
 .gallery {
-    background-color: black;
+    background-color: white;
+    margin: 1rem 0;
 }
 
 .gallery h3 {
-    margin: 0;
-}
-
-.gallery .inverse {
-    line-height: 5em;
-    height: 5em;
-    min-height: 0;
-    font-size: 2em;
+    margin: 0.5rem auto;
+    text-align: center;
 }
 
 .gallery img {
     width: 100%;
     display: block;
+    object-fit: cover;
 }
 
-.gallery .column {
-    width: 33.3333333%;
+.card img {
+    height: 10rem;
+}
+
+.card {
+    width: 25%;
+}
+
+.column {
+    width: 33.3333%;
 }
 
 footer {
@@ -311,8 +286,8 @@ footer {
     margin: 0;
     bottom: 0;
     width: 100%;
-    height: 4.8em;
-    line-height: 4.8em;
+    height: 4em;
+    line-height: 4em;
     background-color: rgb(0, 0, 0);
     font-size: 1.25rem;
     text-align: right;
@@ -321,7 +296,7 @@ footer {
 
 .social-media {
     width: 1.75em !important;
-    margin: 1.5em 1.5em 0 0;
+    margin: 1em 1em 0 0;
     float: right;
 }
 
@@ -348,7 +323,7 @@ footer {
         padding-bottom: 3.6rem;
     }
 
-    .column {
+    .card, .column {
         width: 100% !important;
         height: auto;
     }
