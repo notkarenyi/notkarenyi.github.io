@@ -7,7 +7,8 @@ body {
     margin: 0;
     padding: 0;
     background-color: black;
-    font-size: 16px;
+    font-size: 18px;
+    line-height: 24px;
 }
 
 /* Organizational */
@@ -20,7 +21,7 @@ body {
 
 main {
     min-height: calc(100vh - 6em);
-    padding: 3em 0;
+    padding: 2em 0 4em 0;
     width: 100%;
 }
 
@@ -52,7 +53,7 @@ header {
     background-color: black;
     top: 0;
     width: 100%;
-    height: 4em;
+    height: 3em;
 }
 
 #title, #title a {
@@ -77,7 +78,7 @@ nav a {
     text-decoration: none;
     padding-bottom: 6px;
     height: 1rem;
-    margin: 1.5rem 1rem;
+    margin: 1rem;
     color: white;
 }
 
@@ -97,13 +98,13 @@ h2 {
     color: black;
     line-height: 1em;
     letter-spacing: 1px;
-    font-size: 26px;
+    font-size: 30px;
     margin-top: 2rem;
 }
 
 h3 {
     font-family: "Vollkorn", serif;
-    font-size: 1rem;
+    font-size: 20px;
     color: black;
     font-weight: 700;
     margin: 0.5rem 0 1rem 0;
@@ -139,9 +140,9 @@ figure img {
     width: 100%;
 }
 
-/* Gallery/Cards */
+/* Gallery/deck */
 
-.column, .column h2 {
+.dark, .dark h2 {
     background-color: black;
     color: white;
 }
@@ -153,40 +154,41 @@ figure img {
 }
 
 .column {
-    width: 33.3333%;
+    width: 33.333%;
     float: left;
 }
 
-.cards {
-    margin: 1rem 0;
+.deck {
     width: 100%;
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
 }
 
-.cards h3 {
+.deck h3 {
     margin: 0.5rem auto;
     text-align: center;
 }
 
-.cards img, .column img {
+.deck img, .column img {
     width: 100%;
     object-fit: cover;
     display: flex;
     flex-direction: row;
 }
 
-.cards a {
+.deck a {
     text-decoration: none;
 }
 
 .card img {
-    height: 15vw;
+    height: 20vw;
 }
 
 .card {
-    width: 25%;
+    width: 33.333%;
     border-radius: 15px;
+    margin: 1em 0;
 }
 
 .card:hover, .card:active, .card:focus {
@@ -207,8 +209,7 @@ figure img {
     color: white;
     border-radius: 15px;
     padding: 0.25rem 0.75rem;
-    margin-bottom: 1rem;
-    margin-right: 0.5rem;
+    margin: 0 0.5em 0 0;
 }
 
 /* Footer */
@@ -274,11 +275,6 @@ footer a:active, footer a:hover, footer a:focus {
         margin: 0 auto;
         float: none;
     }
-
-    .cards {
-        flex-wrap: wrap;
-    }
-
     .card img {
         height: 40vw;
     }
