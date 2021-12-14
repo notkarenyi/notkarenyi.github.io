@@ -11,6 +11,10 @@ body {
     line-height: 24px;
 }
 
+.mobile-only {
+    display: none;
+}
+
 /* Organizational */
 
 .container {
@@ -261,6 +265,7 @@ footer a:active, footer a:hover, footer a:focus {
     }
 
     .single-column {
+        
         width: 85%;
     }
 
@@ -286,6 +291,13 @@ footer a:active, footer a:hover, footer a:focus {
     
     h3 {
         font-size: 20px;
+    }
+
+    .mobile-only {
+        display: block !important;
+        padding-top: 4em;
+        padding-bottom: 0;
+        text-align: center;
     }
 }
 
