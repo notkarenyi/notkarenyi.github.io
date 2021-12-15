@@ -230,7 +230,7 @@ footer {
     text-align: right;
     z-index: 500;
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
 }
 
 footer img {
@@ -238,8 +238,20 @@ footer img {
     margin: 1em 1em 0 0;
 }
 
+footer a {
+    text-decoration: none !important;
+}
+
 footer a:active, footer a:hover, footer a:focus {
     opacity: 0.6;
+}
+
+footer p {
+    font-family: "Readex Pro", sans-serif;
+    font-size: 12px;
+    text-align: left;
+    margin: auto 1em;
+    color: rgb(155, 155, 255);
 }
 
 /* Mobile */
@@ -291,6 +303,10 @@ footer a:active, footer a:hover, footer a:focus {
     
     h3 {
         font-size: 20px;
+    }
+
+    h4 {
+        text-align: center;
     }
 
     .mobile-only {
