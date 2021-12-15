@@ -262,7 +262,7 @@ footer p {
         font-size: 16px;
     }
 
-    header, footer  {
+    header  {
         height: 4em;
         font-size: 16px;
         justify-content: center;
@@ -273,11 +273,11 @@ footer p {
     }
 
     main {
-        padding: 1.5em 0;
+        padding-top: 1.5em;
+        padding-bottom: 8em;
     }
 
-    .single-column {
-        
+    .single-column {  
         width: 85%;
     }
 
@@ -305,8 +305,19 @@ footer p {
         font-size: 20px;
     }
 
-    h4 {
+    footer {
+        flex-direction: column;
+        height: 8em;
+    }
+
+    footer div {
+        display: flex;
+        justify-content: center;
+    }
+
+    footer p {
         text-align: center;
+        line-height: 16px;
     }
 
     .mobile-only {
@@ -317,8 +328,4 @@ footer p {
     }
 }
 
-/*add menu collapser thing for mobile and other media rules*/
 /*add javascript style gallery so images don't take so long to load*/
-/*add disclaimer in footer or on hover of certain images (unaffiliated w/ converse etc.)*/
-/*add highlight when mousing over image on homepage*/
-/*add #ids and more rows to homepage*/
