@@ -64,7 +64,7 @@ header {
     font-size: 24px;
     letter-spacing: .375rem;
     font-family: "Readex Pro", sans-serif;
-    margin-left: 1em;
+    margin-left: 0.5em;
     text-decoration: none;
     color: rgb(155, 155, 255);
 }
@@ -82,7 +82,7 @@ nav a {
     text-decoration: none;
     padding-bottom: 6px;
     height: 1rem;
-    margin: 1rem;
+    margin: 0.75em;
     color: white;
 }
 
@@ -250,7 +250,7 @@ footer p {
     font-family: "Readex Pro", sans-serif;
     font-size: 12px;
     text-align: left;
-    margin: auto 1em;
+    margin: auto 2em;
     color: rgb(155, 155, 255);
 }
 
