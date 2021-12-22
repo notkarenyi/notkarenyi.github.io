@@ -1,2 +1,2 @@
-# outoflead
-personal art site by Karen Y. practice for a beginning coder:)
+# karen yi
+personal site and online resume by me ! has been a good learning opportunity:)
