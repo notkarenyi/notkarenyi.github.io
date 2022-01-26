@@ -216,6 +216,13 @@ figure img {
     margin: 0 0.5em 0 0;
 }
 
+/* Misc */
+
+blockquote {
+    text-align: left;
+    font-style: italic;
+}
+
 /* Footer */
 
 footer {
