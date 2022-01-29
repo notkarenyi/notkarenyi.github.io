@@ -156,6 +156,13 @@ figure img {
     width: 100%;
 }
 
+img {
+    display: block;
+    position: relative;
+    z-index: 100;
+    width: 100%;
+}
+
 /* Gallery/deck */
 
 .dark, .dark h2 {
