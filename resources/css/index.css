@@ -50,6 +50,10 @@ section {
     margin: 8em 0;
 }
 
+article section {
+    margin: 3em 0;
+}
+
 /* Header */
 
 #splash {
@@ -149,18 +153,15 @@ figure {
     margin: 0;
 }
 
-figure img {
+figure img, article img {
     display: block;
     position: relative;
     z-index: 100;
     width: 100%;
 }
 
-img {
-    display: block;
-    position: relative;
-    z-index: 100;
-    width: 100%;
+article img {
+    margin: 4em 0;
 }
 
 /* Gallery/deck */
@@ -202,6 +203,11 @@ img {
 
 .deck a {
     text-decoration: none;
+}
+
+article .deck img {
+    width: 50%;
+    margin: 2em 0;
 }
 
 .card img {
