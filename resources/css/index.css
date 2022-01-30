@@ -225,6 +225,15 @@ article .deck img {
     background-color: rgb(155, 155, 255);
 }
 
+.two-column {
+    display: flex;
+    justify-content: space-between;
+}
+
+.two-column a {
+    width: 48%;
+}
+
 /* Skills */
 
 .skills {
@@ -301,13 +310,13 @@ footer p {
 
     #splash {
         background-size: 80%;
-        height: 90vh;
+        height: 70vh;
     }
 
     header  {
         height: 4em;
         font-size: 16px;
-        justify-content: center;
+        justify-content: space-between;
     }
 
     .container {
@@ -329,7 +338,7 @@ footer p {
 
     #title a, #title {
         font-size: 20px;
-        margin: auto 0;
+        margin: 0.8em;
     }
 
     .column {
@@ -363,9 +372,11 @@ footer p {
 
     .mobile-only {
         display: block !important;
-        padding-top: 3em;
-        padding-bottom: 0;
         text-align: center;
+        margin: 1em 2em;
+        color:white;
+        text-decoration: none;
+        font-weight: 400;
     }
 }
 
