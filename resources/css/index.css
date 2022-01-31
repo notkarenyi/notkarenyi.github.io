@@ -265,6 +265,10 @@ button {
     cursor: pointer;
 }
 
+button:hover, button:active, button:focus {
+    background-color: rgb(155, 155, 255);
+}
+
 /* Footer */
 
 footer {
