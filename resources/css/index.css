@@ -160,8 +160,14 @@ figure img, article img {
     width: 100%;
 }
 
-article img {
+article figure {
     margin: 4em 0;
+}
+
+figcaption {
+    margin-top: 1em;
+    font-size: .75em;
+    text-align: left;
 }
 
 /* Gallery/deck */
