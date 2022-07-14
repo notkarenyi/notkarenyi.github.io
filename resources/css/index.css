@@ -347,11 +347,10 @@ a {
 
 .gr_custom_book_container_1657826294 {
     overflow: hidden;
-    height: 8em;
+    height: 100%;
     float: left;
     margin: 0 2em;
     padding-top: .3em;
-    background-color: black;
 }
 
 .gr_custom_title_1657826294{
@@ -488,8 +487,13 @@ footer p {
         margin: 1em 0;
     }
 
-    .gr_custom_book_container_1657826294 {
-        height: 13em;
+    .gr_custom_review_1657826294 {
+        display: inline-block;
+        margin: 1em 2em 0 2em;
+    }
+
+    .gr_custom_book_container_1657826294, .gr_custom_book_container_1657826294 img {
+        height: 3em;
     }
     
     h3 {
