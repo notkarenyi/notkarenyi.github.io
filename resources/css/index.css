@@ -467,7 +467,7 @@ footer p {
     }
 
     .wide h2 {
-        margin-left: .75em;
+        margin-left: 1em;
     }
 
     .left {
@@ -508,8 +508,12 @@ footer p {
         height: 3em;
     }
     
-    h3, .left h3, .left p {
+    h3, .left h3, .left p, h4 {
         font-size: 16px !important;
+    }
+
+    h4 {
+        line-height: 18px !important;
     }
 
     footer {
