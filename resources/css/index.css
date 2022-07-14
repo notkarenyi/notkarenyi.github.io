@@ -88,8 +88,12 @@ section {
     font-family: "Readex Pro", sans-serif;
 }
 
+.spaced.color {
+    padding-bottom: .5em;
+}
+
 .left h3, .left p {
-    font-size: 18px !important;
+    font-size: 18px;
 }
 
 .color {
@@ -335,7 +339,7 @@ button:hover, button:active, button:focus {
     width: 100%;
     clear: both;
     padding: 1.5em 0;
-    margin: 1em 0;
+    margin-top: 1em;
     overflow: auto;
     border-radius: 5px;
     background-color: #FFFFFF;
@@ -462,6 +466,14 @@ footer p {
         width: 95%;
     }
 
+    .wide h2 {
+        margin-left: .75em;
+    }
+
+    .left {
+        line-height: 16px;
+    }
+
     #title a, #title {
         font-size: 20px;
         margin: 0.8em;
@@ -496,8 +508,8 @@ footer p {
         height: 3em;
     }
     
-    h3 {
-        font-size: 20px;
+    h3, .left h3, .left p {
+        font-size: 16px !important;
     }
 
     footer {
