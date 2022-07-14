@@ -265,8 +265,11 @@ article .deck img {
     margin: 1em 0;
 }
 
-.card:hover, .card:active, .card:focus {
+.card a:hover, .card a:active, .card a:focus {
     filter: brightness(110%);
+}
+
+.card:hover, .card:active, .card:focus {
     background-color: rgb(165, 165, 255);
 }
 
