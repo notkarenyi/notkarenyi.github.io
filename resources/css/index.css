@@ -40,18 +40,56 @@ main:after {
     clear: both;
 }
 
-.single-column {
+.narrow {
     width: 50%;
     margin-left: auto;
     margin-right: auto;
 }
 
 section {
-    margin: 8em 0;
+    margin: 3em 0;
+    scroll-margin-top: 100px;
 }
 
-article section {
-    margin: 3em 0;
+.spaced {
+    margin-top: 8em;
+    margin-bottom: 8em;
+}
+
+/* Wide */
+
+.wide article {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 2em;
+    padding: 1.5em;
+    margin: 1em 0;
+    border-radius: 5px;
+    background-color: white;
+}
+
+.wide {
+    width: 75%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.wide article div {
+    flex: 2 1 0;
+}
+
+.wide article h3, .wide article p {
+    margin-top: 1em;
+}
+
+.wide article .left {
+    flex: 1 1 0;
+}
+
+.color {
+    padding: 4em 0;
+    background-color: rgb(165, 165, 255);
 }
 
 /* Header */
@@ -83,7 +121,7 @@ header {
     letter-spacing: .375rem;
     margin-left: 0.5em;
     text-decoration: none;
-    color: rgb(155, 155, 255);
+    color: rgb(165, 165, 255);
 }
 
 /* Nav */
@@ -105,7 +143,7 @@ nav a {
 
 nav a:hover, nav a:active, nav a:focus {
     color: white !important;
-    border-bottom: .3rem solid rgb(155, 155, 255);
+    border-bottom: .3rem solid rgb(165, 165, 255);
 }
 
 .current {
@@ -139,7 +177,7 @@ a {
 }
 
 a:hover, a:active, a:focus {
-   color: rgb(155, 155, 255) !important;
+   color: rgb(165, 165, 255) !important;
 }
 
 /* Images */
@@ -228,7 +266,7 @@ article .deck img {
 
 .card:hover, .card:active, .card:focus {
     filter: brightness(110%);
-    background-color: rgb(155, 155, 255);
+    background-color: rgb(165, 165, 255);
 }
 
 .two-column {
@@ -266,7 +304,7 @@ button {
 }
 
 button:hover, button:active, button:focus {
-    background-color: rgb(155, 155, 255);
+    background-color: rgb(165, 165, 255);
 }
 
 /* Footer */
@@ -307,7 +345,7 @@ footer p {
     font-size: 12px;
     text-align: left;
     margin: auto 2em;
-    color: rgb(155, 155, 255);
+    color: rgb(165, 165, 255);
 }
 
 /* Mobile */
@@ -342,13 +380,21 @@ footer p {
         padding-bottom: 8em;
     }
 
-    .single-column {  
+    .narrow {  
         width: 85%;
+    }
+
+    .wide {
+        width: 95%;
     }
 
     #title a, #title {
         font-size: 20px;
         margin: 0.8em;
+    }
+
+    article {
+        display: block;
     }
 
     .column {
@@ -357,6 +403,7 @@ footer p {
         margin: 0 auto;
         float: none;
     }
+
     .card img {
         height: 40vw;
     }
