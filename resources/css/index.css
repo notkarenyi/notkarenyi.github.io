@@ -272,6 +272,7 @@ article .deck img {
 
 .card a:hover, .card a:active, .card a:focus {
     filter: brightness(110%);
+    color: black !important;
 }
 
 .card:hover, .card:active, .card:focus {
