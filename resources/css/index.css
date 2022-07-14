@@ -62,7 +62,7 @@ section {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    gap: 2em;
+    gap: 3em;
     padding: 1.5em;
     margin: 1em 0;
     border-radius: 5px;
@@ -85,6 +85,7 @@ section {
 
 .wide article .left {
     flex: 1 1 0;
+    font-family: "Readex Pro", sans-serif;
 }
 
 .color {
@@ -307,6 +308,62 @@ button:hover, button:active, button:focus {
     background-color: rgb(165, 165, 255);
 }
 
+.gr_custom_container_1657826294 center {
+    display: none;
+}
+
+.gr_custom_container_1657826294 a:hover, .gr_custom_container_1657826294 a:active, .gr_custom_container_1657826294 a:focus {
+    color: black !important;
+    text-decoration: underline !important;
+}
+
+.gr_custom_header_1657826294 a {
+    margin: 1em 0;
+    color: black;
+}
+
+.gr_custom_each_container_1657826294 {
+    width: 100%;
+    clear: both;
+    padding: 1.5em 0;
+    margin: 1em 0;
+    overflow: auto;
+    border-radius: 5px;
+    background-color: #FFFFFF;
+}
+
+a {
+    color: rgb
+}
+
+.gr_custom_book_container_1657826294 {
+    overflow: hidden;
+    height: 8em;
+    float: left;
+    margin: 0 2em;
+    padding-top: .3em;
+    background-color: black;
+}
+
+.gr_custom_title_1657826294{
+    margin-top: 0;
+}
+
+.gr_custom_book_container_1657826294 img {
+    height: 7.5em;
+    width: auto;
+}
+
+.gr_custom_review_1657826294 {
+    font-style: italic;
+    margin: .5em 2em 0 0;
+}
+
+.gr_custom_author_1657826294 a {
+    text-decoration: none;
+    color: black;
+}
+
 /* Footer */
 
 footer {
@@ -412,6 +469,10 @@ footer p {
         width: 50%;
         margin: 1em 0;
     }
+
+    .gr_custom_book_container_1657826294 {
+        height: 13em;
+    }
     
     h3 {
         font-size: 20px;
@@ -436,5 +497,3 @@ footer p {
         font-weight: 400;
     }
 }
-
-/*add javascript style gallery so images don't take so long to load*/
