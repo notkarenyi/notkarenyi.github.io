@@ -88,6 +88,10 @@ section {
     font-family: "Readex Pro", sans-serif;
 }
 
+.left h3, .left p {
+    font-size: 18px !important;
+}
+
 .color {
     padding: 4em 0;
     background-color: rgb(165, 165, 255);
@@ -163,7 +167,8 @@ h2 {
 }
 
 h3 {
-    font-size: 20px;
+    font-family: "Readex Pro", sans-serif;
+    font-size: 24px;
     color: black;
     font-weight: 700;
     margin: 0.5rem 0 1rem 0;
@@ -235,7 +240,7 @@ figcaption {
     margin: 2em 0;
 }
 
-.deck h3 {
+.deck h4 {
     margin: 0.5rem auto;
     text-align: center;
 }
