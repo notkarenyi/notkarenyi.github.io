@@ -384,9 +384,17 @@ footer img {
     margin: 1em 1em 0 0;
 }
 
-footer div {
+#social {
     display: flex;
     justify-content: center;
+}
+
+#footer-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    gap: .1em;
+    padding: 2em 0;
 }
 
 footer a {
@@ -401,6 +409,7 @@ footer p {
     font-family: "Readex Pro", sans-serif;
     font-size: 12px;
     text-align: left;
+    line-height: 14px;
     margin: auto 2em;
     color: rgb(165, 165, 255);
 }
