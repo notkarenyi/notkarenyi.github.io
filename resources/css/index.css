@@ -477,7 +477,7 @@ footer img {
     }
 
     .wide h2 {
-        margin-left: 1em;
+        margin-left: .75em;
     }
 
     .left {
@@ -511,11 +511,12 @@ footer img {
 
     .gr_custom_review_1657826294 {
         display: inline-block;
-        margin: 1em 2em 0 2em;
+        margin: 1em 1.5em 0 1.5em;
     }
 
     .gr_custom_book_container_1657826294, .gr_custom_book_container_1657826294 img {
         height: 3em;
+        margin: 0 .75em;
     }
     
     h3, .left h3, .left p, h4 {
