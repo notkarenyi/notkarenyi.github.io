@@ -465,7 +465,7 @@ footer img {
 
     main {
         padding-top: 1.5em;
-        padding-bottom: 8em;
+        padding-bottom: 24em;
     }
 
     .narrow {  
@@ -528,11 +528,14 @@ footer img {
 
     footer {
         flex-direction: column;
-        height: 8em;
+        height: 24em;
+    }
+
+    footer div {
+        width: 75%;
     }
 
     footer p {
-        text-align: center;
         line-height: 16px;
     }
 
