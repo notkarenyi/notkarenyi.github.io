@@ -143,12 +143,13 @@ header {
     top: 0;
     width: 100%;
     height: 3em;
-    font-family: "Shrikhand", sans-serif;
+    font-family: "ZCOOL QingKe HuangYou", sans-serif;
 }
 
 #title, #title a {
     font-size: 20px;
     letter-spacing: .375rem;
+    font-weight: 700;
     margin-left: 0.5em;
     text-decoration: none;
     color: rgb(165, 165, 255);
@@ -166,6 +167,8 @@ nav {
 nav a {
     text-decoration: none;
     padding-bottom: 6px;
+    letter-spacing: 2px;
+    font-weight: 700;
     height: 1rem;
     margin: 0.8em;
     color: white;
@@ -173,7 +176,7 @@ nav a {
 
 nav a:hover, nav a:active, nav a:focus {
     color: white !important;
-    border-bottom: .3rem solid rgb(165, 165, 255);
+    border-bottom: 3px solid white;
 }
 
 .current {
@@ -183,10 +186,11 @@ nav a:hover, nav a:active, nav a:focus {
 /* Headings */
 
 h2 {
-    font-family: "Readex Pro", sans-serif;
+    font-family: "ZCOOL QingKe HuangYou", sans-serif;
     color: black;
     line-height: 1em;
-    letter-spacing: 1px;
+    letter-spacing: 2px;
+    font-weight: 1000;
     font-size: 30px;
     margin-top: 2rem;
 }
@@ -456,9 +460,11 @@ footer a, footer p, footer h4 {
 }
 
 footer h4 {
-    font-family: 'Shrikhand', sans-serif;
+    font-family: "ZCOOL QingKe HuangYou", sans-serif;
     font-size: 16px;
     line-height: 24px;
+    letter-spacing: 2px;
+    font-weight: 700;
 }
 
 footer a {
@@ -466,7 +472,7 @@ footer a {
 }
 
 #social a:active, #social a:hover, #social a:focus, footer a:active, footer a:hover, footer a:focus {
-    opacity: 0.6;
+    opacity: 0.7;
 }
 
 footer img {
