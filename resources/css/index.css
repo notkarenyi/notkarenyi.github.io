@@ -4,7 +4,8 @@ html {
 }
 
 body {
-    font-family: "Vollkorn", serif;
+    font-family: "Roboto", serif;
+    font-weight: 400;
     margin: 0;
     padding: 0;
     background-color: black;
@@ -14,6 +15,11 @@ body {
 
 .mobile-only {
     display: none;
+}
+
+p {
+    padding-top: .5em;
+    padding-bottom: .5em;
 }
 
 /* Organizational */
@@ -101,7 +107,7 @@ section {
 
 .wide article .left {
     flex: 1 1 0;
-    font-family: "Readex Pro", sans-serif;
+    font-family: "Roboto", sans-serif;
 }
 
 .spaced.color {
@@ -122,9 +128,8 @@ article .left h3, article .left p {
 #splash {
     height: 98vh;
     top: 0;
-    background-image: url(../splash.jpg);
-    background-position: center;
-    background-size: 50%;
+    background: url(../yi.png) no-repeat center center fixed;
+    background-size: cover;
 }
 
 header {
@@ -138,7 +143,7 @@ header {
     top: 0;
     width: 100%;
     height: 3em;
-    font-family: "Readex Pro", sans-serif;
+    font-family: "Shrikhand", sans-serif;
 }
 
 #title, #title a {
@@ -355,7 +360,7 @@ button {
 }
 
 button:hover, button:active, button:focus {
-    background-color: rgb(165, 165, 255);
+    opacity: 0.85;
 }
 
 .gr_custom_container_1657826294 center {
@@ -380,10 +385,6 @@ button:hover, button:active, button:focus {
     overflow: auto;
     border-radius: 5px;
     background-color: #FFFFFF;
-}
-
-a {
-    color: rgb
 }
 
 .gr_custom_book_container_1657826294 {
@@ -445,7 +446,7 @@ footer div {
 }
 
 footer a, footer p, footer h4 {
-    font-family: 'Readex Pro', sans-serif;
+    font-family: 'Roboto', sans-serif;
     text-decoration: none !important;
     font-size: 12px;
     text-align: left;
@@ -455,6 +456,7 @@ footer a, footer p, footer h4 {
 }
 
 footer h4 {
+    font-family: 'Shrikhand', sans-serif;
     font-size: 16px;
     line-height: 24px;
 }
@@ -463,7 +465,7 @@ footer a {
     color: white;
 }
 
-#social a:active, #social a:hover, #social a:focus {
+#social a:active, #social a:hover, #social a:focus, footer a:active, footer a:hover, footer a:focus {
     opacity: 0.6;
 }
 
