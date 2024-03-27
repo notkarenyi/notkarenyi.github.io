@@ -489,8 +489,9 @@ footer img {
     }
 
     #splash {
-        height: 70vh;
-        background-size: cover;
+        height: 55vh;
+        background-size: 140vw;
+        background-position: -20vw 0;
     }
 
     header  {
