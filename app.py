@@ -10,6 +10,7 @@ df = pd.read_excel('resources/resume.xlsx',sheet_name='Graph',parse_dates=['Star
 
 df['Start'] = df['Start'].fillna(datetime(2000,1,1))
 df['End'] = df['End'].fillna(datetime(2000, 1, 1))
+df['Interests'] = df['Interests'].fillna('N/A')
 
 df = df.sort_values('Start')
 df['Dummy'] = 1
@@ -22,7 +23,7 @@ df['Dummy'] = 1
 
 def create_text(row):
     out = ""
-    for col in ['Course/Role','URL','Organization','Type']:
+    for col in ['Course/Role','URL','Organization','Type','Interests','Skills','Technologies']:
         if isinstance(row[col],str):
             if col == 'URL':
                 out += '<a href="' + row[col] + '" target="blank_">'
@@ -44,30 +45,24 @@ ui.h1("Karen's Resume")
 ui.input_selectize(
     "group_by", 
     "Group by", 
-    choices=not_student.columns.tolist(), 
+    choices=['Type','Interests'], 
     selected='Type'
 )
-
-@render.code
-def greeting():
-    return 'm'
 
 "Click info"
 @render.code
 def click_info():
     return str(click_reactive.get())
 
-"""
-Create Gantt chart
-The native function does not work with Shiny for some reason
-"""
+# Create Gantt chart
+# The native function does not work with Shiny for some reason
 @render_plotly  
 def plot():  
 
     traces = []  # List to hold all traces
 
     # Get unique groups (e.g., Interests)
-    unique_groups = not_student['Type'].unique()
+    unique_groups = not_student[input.group_by()].unique()
 
     # Create a mapping of groups to colors
     color_scale = px.colors.qualitative.Safe 
@@ -75,13 +70,13 @@ def plot():
 
     # Iterate over each row in the dataset
     for _, row in not_student.iterrows():
-        if row['Type'] != 'student':  # Filter out rows with Type == 'student'
+        if row[input.group_by()] != 'student':  # Filter out rows with Type == 'student'
             line_trace = go.Scatter(
                 x=[row['Start'], row['End']],  # X-coordinates for the line
                 y=[row['Index'], row['Index']],  # Y-coordinates for the line
                 mode='lines',
                 line=dict(
-                    color=group_colors[row['Type']],  # Assign color based on Type
+                    color=group_colors[row[input.group_by()]],  # Assign color based on Type
                     width=12
                 ),
                 text=[row['Text'],row['Text']],  # Hover text
