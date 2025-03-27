@@ -20,9 +20,23 @@ df['Dummy'] = 1
 
 # df.to_json('resources/resume.json', orient='records')
 
+def create_text(row):
+    out = ""
+    for col in ['Course/Role','URL','Organization','Type']:
+        if isinstance(row[col],str):
+            if col == 'URL':
+                out += '<a href="' + row[col] + '" target="blank_">'
+                continue
+            if col == 'Organization':
+                out += row[col] + '</a>'
+            else:
+                out += row[col]
+            out += '<br />'
+    return out
+
 not_student = df.loc[df['Type']!='student'].sort_values('Start')
 not_student = not_student.loc[not_student['End']>datetime(2000,1,1)]
-not_student['Text'] = not_student['Course/Role'] + '<br /><a href="' +  not_student['URL'] + '" target="blank_">' + not_student['Organization'] + '</a><br />' + not_student['Type']
+not_student['Text'] = not_student.apply(create_text, axis=1)
 not_student['Index'] = not_student.groupby('Dummy').cumcount() + 1
 
 ui.h1("Karen's Resume")
