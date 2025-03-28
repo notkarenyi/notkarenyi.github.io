@@ -163,7 +163,7 @@ with ui.card():
         gantt['Index'] = range(len(gantt))  # Create a new index for y-axis]
 
         point = hover_reactive.get()
-        text = gantt.loc[gantt['Index']==point['_ys'][0],'Title'].values[0]
+        text = gantt.loc[gantt['Index']==point['_ys'][0],'Text'].values[0]
 
         # express does not allow returns but displays each line dynamically 
         ui.HTML(text)
