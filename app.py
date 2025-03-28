@@ -181,6 +181,7 @@ with ui.card():
             hoverlabel=dict(
                 bgcolor='white'
             ),
+            dragmode='pan',
             height=len(not_student) * 20+100,  # Adjust height based on number of rows
         )
 
@@ -300,6 +301,7 @@ with ui.card():
         fig = go.Figure(data=[edge_trace, node_trace],
             layout=go.Layout(
                 showlegend=False,
+                dragmode='pan',
                 hovermode='closest',
                 annotations=[ 
                     dict(
