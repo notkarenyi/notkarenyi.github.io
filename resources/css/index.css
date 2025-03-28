@@ -229,8 +229,8 @@ a:hover, a:active, a:focus {
     width: 70vw;
 }
 
-    width: min(600px,70vw) !important;
 #gantt, #network_graph {
+    width: min(750px,70vw) !important;
     margin-left: auto;
     margin-right: auto;
 }
