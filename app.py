@@ -1,7 +1,6 @@
 import pickle
 import pandas as pd
 from datetime import datetime
-import networkx as nx
 from shiny.express import input, render, ui
 import plotly.express as px
 import plotly.graph_objects as go
@@ -19,8 +18,6 @@ ui.include_css(
 # Capture the hovered point in a reactive value
 hover_reactive = reactive.value() 
 
-def on_hover(trace, points, state): 
-    hover_reactive.set(points.__dict__) 
 
 with ui.card():
 
