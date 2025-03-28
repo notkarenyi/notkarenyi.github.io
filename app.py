@@ -55,22 +55,11 @@ with ui.card():
             gantt = gantt.loc[gantt['Main']==True]
 
         gantt['Index'] = range(len(gantt))  # Create a new index for y-axis]
-        
-        # Get unique groups (e.g., Interests)
-        unique_groups = gantt[input.group_by()].unique()
 
-        group_colors = make_color_scale(unique_groups)
+        traces = []
 
-        styles = []
-        for i,color in enumerate(group_colors.values()):
-            styles.append({
-                'target':unique_groups[i],
-                'value': {
-                    'marker': {
-                        'color': color
-                    }
-                }
-            })
+        #%% hover data layer 
+        # click data events only register the top layer :/
 
         xs = []
         ys = []
@@ -86,24 +75,49 @@ with ui.card():
             groups.append(row[input.group_by()])
             groups.append(row[input.group_by()])
             groups.append(None)
-            
-        trace = go.Scatter(
+
+        traces.append(go.Scatter(
             x=xs,
             y=ys,
             mode='lines',
-            # transforms = [{
-            #     type: 'groupby',
-            #     groups: groups,
-            #     styles: styles
-            # }],
             hoverinfo='none',
             line={
                 'width':12
             },
+            opacity=0,
             showlegend=False
-        )        
+        )) 
+            
+        #%% color-coded can only be created with individual traces 
 
-        # Create the layout
+        # Create a mapping of groups to colors
+        unique_groups = gantt[input.group_by()].unique()
+        color_scale = px.colors.qualitative.Safe 
+        group_colors = {group: color_scale[i % len(color_scale)] for i, group in enumerate(unique_groups)}
+
+        # Iterate over each row in the dataset
+        for _, row in gantt.iterrows():
+            if row[input.group_by()] != 'student':  # Filter out rows with Type == 'student'
+                line_trace = go.Scatter(
+                    x=[row['Start'], row['End']],  # X-coordinates for the line
+                    y=[row['Index'], row['Index']],  # Y-coordinates for the line
+                    mode='lines',
+                    line=dict(
+                        color=group_colors[row[input.group_by()]],  # Assign color based on Type
+                        width=15
+                    ),
+                    hoverinfo='none',
+                    showlegend=False
+                )
+                # Add the line trace to the list
+                traces.append(line_trace)
+
+        # config = {
+        #     'displayModeBar': True,  # Show the mode bar
+        #     'modeBarButtonsToRemove': ['select2d', 'lasso2d'],  # Remove box select and lasso select
+        #     'scrollZoom': True,  # Allow scroll zoom
+        # }
+
         layout = go.Layout(
             xaxis=dict(
                 showgrid=True,
@@ -128,15 +142,24 @@ with ui.card():
             height=len(gantt) * 20+100,  # Adjust height based on number of rows
         )
 
-        # config = {
-        #     'displayModeBar': True,  # Show the mode bar
-        #     'modeBarButtonsToRemove': ['select2d', 'lasso2d'],  # Remove box select and lasso select
-        #     'scrollZoom': True,  # Allow scroll zoom
-        # }
+        # https://community.plotly.com/t/adding-custom-legend-in-plotly/65610/3
+        for k,v in group_colors.items():
+            trace = go.Scatter(
+                x=[None],  # Dummy x-coordinate
+                y=[None],  # Dummy y-coordinate
+                mode='markers',
+                name=k,
+                marker=dict(
+                    size=7, 
+                    symbol='circle',
+                    color=v,  # Colors for each group
+                ),
+                hoverinfo='none'
+            )
+            traces.append(trace)
 
-        # Create the figure
         fig = go.Figure(
-            data=trace, 
+            data=traces, 
             layout=layout,
         )
 
