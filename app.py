@@ -1,5 +1,7 @@
+import pickle
 import pandas as pd
 from datetime import datetime
+import networkx as nx
 from shiny.express import input, render, ui
 import plotly.express as px
 import plotly.graph_objects as go
@@ -49,44 +51,68 @@ with ui.card():
     # The native function does not work with Shiny for some reason
     @render_plotly  
     def gantt():  
-
-        not_student = make_gantt_data(df)
+                
+        gantt = pd.read_excel('resources/gantt.xlsx',index_col=None)
 
         if input.filter_by() == 'Jobs':
-            not_student = not_student.loc[not_student['Type']!='member']
-            not_student = not_student.loc[not_student['Type']!='volunteer']
+            gantt = gantt.loc[gantt['Type']!='member']
+            gantt = gantt.loc[gantt['Type']!='volunteer']
         elif input.filter_by() == 'Main':
-            not_student = not_student.loc[not_student['Main']==True]
+            gantt = gantt.loc[gantt['Main']==True]
 
-        not_student['Index'] = range(len(not_student))  # Create a new index for y-axis]
-
-        traces = []  # List to hold all traces
-
+        gantt['Index'] = range(len(gantt))  # Create a new index for y-axis]
+        
         # Get unique groups (e.g., Interests)
-        unique_groups = not_student[input.group_by()].unique()
+        unique_groups = gantt[input.group_by()].unique()
 
-        # Create a mapping of groups to colors
-        color_scale = px.colors.qualitative.Safe 
-        group_colors = {group: color_scale[i % len(color_scale)] for i, group in enumerate(unique_groups)}
+        group_colors = make_color_scale(unique_groups)
 
-        # Iterate over each row in the dataset
-        for _, row in not_student.iterrows():
-            if row[input.group_by()] != 'student':  # Filter out rows with Type == 'student'
-                line_trace = go.Scatter(
-                    x=[row['Start'], row['End']],  # X-coordinates for the line
-                    y=[row['Index'], row['Index']],  # Y-coordinates for the line
-                    mode='lines',
-                    line=dict(
-                        color=group_colors[row[input.group_by()]],  # Assign color based on Type
-                        width=15
-                    ),
-                    text=[row['Text'],row['Text']],  # Hover text
-                    hoverinfo='text',
-                    hovertemplate='%{text}<extra></extra>',
-                    showlegend=False
-                )
-                # Add the line trace to the list
-                traces.append(line_trace)
+        styles = []
+        for i,color in enumerate(group_colors.values()):
+            styles.append({
+                'target':unique_groups[i],
+                'value': {
+                    'marker': {
+                        'color': color
+                    }
+                }
+            })
+
+        xs = []
+        ys = []
+        ts = []
+        groups = []
+        for _, row in gantt.iterrows():
+            xs.append(row['Start'])
+            xs.append(row['End'])
+            xs.append(None) # pick up pen
+            ys.append(row['Index'])
+            ys.append(row['Index'])
+            ys.append(None)
+            ts.append(row['Text'])
+            ts.append(row['Text'])
+            ts.append(None)
+            # Assign color based on Type
+            groups.append(row[input.group_by()])
+            groups.append(row[input.group_by()])
+            groups.append(None)
+            
+        trace = go.Scatter(
+            x=xs,
+            y=ys,
+            mode='lines',
+            # transforms = [{
+            #     type: 'groupby',
+            #     groups: groups,
+            #     styles: styles
+            # }],
+            text=ts, # Hover text
+            hoverinfo='none',
+            line={
+                'width':12
+            },
+            showlegend=False
+        )        
 
         # Create the layout
         layout = go.Layout(
@@ -95,7 +121,7 @@ with ui.card():
                 showline=True,
                 range=[
                     min(
-                        not_student.loc[not_student['Start']>datetime(1970,1,1),'Start']
+                        gantt.loc[gantt['Start']>datetime(1970,1,1),'Start']
                     ), 
                     '2026-01-01'
                 ],  # Adjust the range as needed
@@ -113,25 +139,8 @@ with ui.card():
                 bgcolor='white'
             ),
             dragmode='pan',
-            height=len(not_student) * 20+100,  # Adjust height based on number of rows
+            height=len(gantt) * 20+100,  # Adjust height based on number of rows
         )
-
-        colorbar_traces = []
-        # https://community.plotly.com/t/adding-custom-legend-in-plotly/65610/3
-        for k,v in group_colors.items():
-            trace = go.Scatter(
-                x=[None],  # Dummy x-coordinate
-                y=[None],  # Dummy y-coordinate
-                mode='markers',
-                name=k,
-                marker=dict(
-                    size=7, 
-                    symbol='circle',
-                    color=v,  # Colors for each group
-                ),
-                hoverinfo='none'
-            )
-            colorbar_traces.append(trace)
 
         # config = {
         #     'displayModeBar': True,  # Show the mode bar
@@ -141,7 +150,7 @@ with ui.card():
 
         # Create the figure
         fig = go.Figure(
-            data=traces + colorbar_traces, 
+            data=trace, 
             layout=layout,
         )
 
