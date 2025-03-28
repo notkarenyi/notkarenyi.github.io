@@ -143,7 +143,7 @@ def network_graph():
     node_adjacencies = []
     node_text = []
     for node, adjacencies in enumerate(G.adjacency()):
-        node_adjacencies.append(len(adjacencies[1]) + 5)
+        node_adjacencies.append(len(adjacencies[1]) + 8)
     for node in G.nodes():    
         node_text.append(G.nodes[node]['labels'])
 
@@ -159,7 +159,7 @@ def network_graph():
     fig = go.Figure(data=[edge_trace, node_trace],
         layout=go.Layout(
             title=dict(
-                text="Coursework",
+                text="Experience",
                 font=dict(
                     size=16
                 )
