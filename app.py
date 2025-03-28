@@ -54,11 +54,6 @@ with ui.card():
 
         gantt['Index'] = range(len(gantt))  # Create a new index for y-axis]
 
-        traces = []
-
-        #%% hover data layer 
-        # click data events only register the top layer :/
-
         xs = []
         ys = []
         groups = []
@@ -74,7 +69,11 @@ with ui.card():
             groups.append(row[input.group_by()])
             groups.append(row[input.group_by()])
             groups.append(row[input.group_by()]) # we have to keep this as the id column when picking up pen
+            
+        #%% hover data layer 
+        # click data events only register the top layer :/
 
+        traces = []
         traces.append(go.Scatter(
             x=xs,
             y=ys,
