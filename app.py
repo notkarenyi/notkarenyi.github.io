@@ -158,12 +158,6 @@ def network_graph():
 
     fig = go.Figure(data=[edge_trace, node_trace],
         layout=go.Layout(
-            title=dict(
-                text="Experience",
-                font=dict(
-                    size=16
-                )
-            ),
             showlegend=False,
             hovermode='closest',
             annotations=[ 
@@ -183,7 +177,7 @@ def network_graph():
         template='plotly_white',
     )
 
-    return fig
+ui.h2("Resume")
 
 # Create Gantt chart
 # The native function does not work with Shiny for some reason
@@ -274,6 +268,7 @@ def plot():
 
 # Capture the clicked point in a reactive value
 click_reactive = reactive.value() 
+ui.h2("Experience")
 
 def on_point_click(trace, points, state): 
     click_reactive.set(points) 
