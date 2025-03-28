@@ -26,7 +26,6 @@ df = df.sort_values('ID')
 # print(df.loc[df['StartYear']==2023])
 # print(df.columns)
 
-
 #%% define functions
 
 def make_graph_data(df):
@@ -58,25 +57,25 @@ def make_graph_data(df):
     return G
 
 def create_text(row):
+    row = row.fillna("")
+
     out = ""
-    for col in ['Course/Role','URL','Organization','Start','End','Type','Interests','Skills','Technologies','Description']:
-        if isinstance(row[col],str):
-            if col == 'URL':
-                out += '<a href="' + row[col] + '" target="blank_">'
-                continue
-            if col == 'Organization':
-                out += row[col] + '</a>'
-            if col == 'Start':
-                out += row[col].month + '/' + row[col].year + ' - '
-                continue
-            if col == 'End':
-                out += row[col].month + '/' + row[col].year
-            if col == 'Skills' or col == 'Technologies':
-                for skill in row[col].split(', '):
-                    out += '<span style="padding:1em; background-color: rgb(165, 165, 255); border-radius: 5px;">' + skill + '</span>'
-            else:
-                out += row[col]
-            out += '<br />'
+    out += f'<b>{row["Course/Role"]}</b>'
+    out += f'<a href="{row["URL"]}" target="blank_">'
+    out += f'{row["Organization"]}</a>'
+    out += f'{row["Start"].month}/{row["Start"].year} - '
+    out += f'{row["End"].month}/{row["End"].year}'
+
+    for col in ['Type','Interests','Skills','Technologies']:
+        if len(row[col].split(', ')):
+            out += '<div class="bubbles">'
+            for skill in row[col].split(', '):
+                out += f'<span class="bubble">{skill}</span>'
+            out += '</div>'  
+            out += ''
+
+    out += row['Description'] + ''
+
     print(out)
     return out
 
