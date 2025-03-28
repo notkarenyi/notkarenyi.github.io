@@ -76,7 +76,6 @@ with ui.card():
 
         xs = []
         ys = []
-        ts = []
         groups = []
         for _, row in gantt.iterrows():
             xs.append(row['Start'])
@@ -85,9 +84,6 @@ with ui.card():
             ys.append(row['Index'])
             ys.append(row['Index'])
             ys.append(None)
-            ts.append(row['Text'])
-            ts.append(row['Text'])
-            ts.append(None)
             # Assign color based on Type
             groups.append(row[input.group_by()])
             groups.append(row[input.group_by()])
@@ -102,7 +98,6 @@ with ui.card():
             #     groups: groups,
             #     styles: styles
             # }],
-            text=ts, # Hover text
             hoverinfo='none',
             line={
                 'width':12
