@@ -155,9 +155,10 @@ with ui.card():
 
         # plot as input
         # https://shiny.posit.co/py/components/outputs/plot-plotly/
-        w = go.FigureWidget(fig.data, fig.layout) 
-        w.data[0].on_hover(on_hover) 
-        return w
+        widget = go.FigureWidget(fig.data, fig.layout) 
+        widget.data[0].on_hover(on_hover) 
+        widget.data[0].on_click(on_hover) 
+        return widget
     
     @render.express
     def hover_info():
