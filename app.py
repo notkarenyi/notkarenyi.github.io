@@ -21,18 +21,14 @@ ui.include_css(
 # def click_info():
 #     return str(click_reactive.get())
 
-# Capture the clicked point in a reactive value
-click_reactive = reactive.value() 
-
-def on_point_click(trace, points, state): 
-    click_reactive.set(points) 
+def on_hover(trace, points, state): 
+    hover_reactive.set(points.__dict__) 
 
 with ui.card():
 
     ui.h2("Resume")
-
+        
     with ui.layout_column_wrap(gap="2em"):
-
         
         ui.input_selectize(
             "group_by", 
@@ -135,9 +131,6 @@ with ui.card():
                 zeroline=False,
             ),
             hovermode='closest',
-            hoverlabel=dict(
-                bgcolor='white'
-            ),
             dragmode='pan',
             height=len(gantt) * 20+100,  # Adjust height based on number of rows
         )
@@ -161,8 +154,26 @@ with ui.card():
         # plot as input
         # https://shiny.posit.co/py/components/outputs/plot-plotly/
         w = go.FigureWidget(fig.data, fig.layout) 
-        w.data[0].on_click(on_point_click) 
+        w.data[0].on_hover(on_hover) 
         return w
+    
+    @render.express
+    def hover_info():
+        gantt = pd.read_excel('resources/gantt.xlsx',index_col=None)
+
+        if input.filter_by() == 'Jobs':
+            gantt = gantt.loc[gantt['Type']!='member']
+            gantt = gantt.loc[gantt['Type']!='volunteer']
+        elif input.filter_by() == 'Main':
+            gantt = gantt.loc[gantt['Main']==True]
+
+        gantt['Index'] = range(len(gantt))  # Create a new index for y-axis]
+
+        point = hover_reactive.get()
+        text = gantt.loc[gantt['Index']==point['_ys'][0],'Title'].values[0]
+
+        # express does not allow returns but displays each line dynamically 
+        ui.HTML(text)
 
 with ui.card():
     ui.h2("Experience")
