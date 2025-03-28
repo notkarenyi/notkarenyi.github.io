@@ -24,7 +24,7 @@ with ui.card():
 
     ui.h2("Resume")
 
-    "Click or hover over data to view details."
+    "Click or hover over data to view details. Double-click to reset pan or zoom."
         
     with ui.layout_column_wrap(gap="2em"):
         
