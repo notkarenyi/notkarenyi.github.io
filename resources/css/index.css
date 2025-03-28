@@ -172,6 +172,7 @@ nav a {
     height: 1rem;
     margin: 0.8em;
     color: white;
+    text-transform: uppercase;
 }
 
 nav a:hover, nav a:active, nav a:focus {
@@ -193,6 +194,7 @@ h2 {
     font-weight: 1000;
     font-size: 30px;
     margin-top: 2rem;
+    text-transform: uppercase;
 }
 
 h3 {
@@ -465,6 +467,7 @@ footer h4 {
     line-height: 24px;
     letter-spacing: 2px;
     font-weight: 700;
+    text-transform: uppercase;
 }
 
 footer a {
