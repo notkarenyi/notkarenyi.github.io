@@ -636,4 +636,9 @@ footer img {
         text-decoration: none;
         font-weight: 400;
     }
+
+    iframe {
+        width: 95vw;
+        height: 1500px;
+    }
 }
