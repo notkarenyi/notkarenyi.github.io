@@ -301,21 +301,21 @@ article .deck img {
     margin: 2em 0;
 }
 
-.card img {
+.gallery-card img {
     height: 15vw;
 }
 
-.card {
+.gallery-card {
     width: 33.333%;
     margin: 1em 0;
 }
 
-.card a:hover, .card a:active, .card a:focus {
+.gallery-card a:hover, .gallery-card a:active, .gallery-card a:focus {
     filter: brightness(110%);
     color: black !important;
 }
 
-.card:hover, .card:active, .card:focus {
+.gallery-card:hover, .gallery-card:active, .gallery-card:focus {
     background-color: rgb(165, 165, 255);
 }
 
@@ -553,11 +553,11 @@ footer img {
         float: none;
     }
 
-    .card img {
+    .gallery-card img {
         height: 40vw;
     }
 
-    .card {
+    .gallery-card {
         width: 50%;
         margin: 1em 0;
     }
