@@ -23,6 +23,8 @@ def on_hover(_, points, __):
 with ui.card():
 
     ui.h2("Resume")
+
+    "Click or hover over data to view details."
         
     with ui.layout_column_wrap(gap="2em"):
         
