@@ -44,7 +44,7 @@ with ui.card():
     # Create Gantt chart
     # The native function does not work with Shiny for some reason
     @render_plotly  
-    def gantt():  
+    def gantt_chart():  
                 
         gantt = pd.read_excel('resources/gantt.xlsx',index_col=None)
 
@@ -64,17 +64,18 @@ with ui.card():
         xs = []
         ys = []
         groups = []
+        # insight: can copy the syntax for graphing edges because this is also a discontinuous line chart
         for _, row in gantt.iterrows():
             xs.append(row['Start'])
             xs.append(row['End'])
             xs.append(None) # pick up pen
             ys.append(row['Index'])
             ys.append(row['Index'])
-            ys.append(None)
+            ys.append(row['Index']) # out of range float values are not JSON compliant
             # Assign color based on Type
             groups.append(row[input.group_by()])
             groups.append(row[input.group_by()])
-            groups.append(None)
+            groups.append(row[input.group_by()]) # we have to keep this as the id column when picking up pen
 
         traces.append(go.Scatter(
             x=xs,
@@ -82,7 +83,7 @@ with ui.card():
             mode='lines',
             hoverinfo='none',
             line={
-                'width':12
+                'width':15
             },
             opacity=0,
             showlegend=False
@@ -92,25 +93,28 @@ with ui.card():
 
         # Create a mapping of groups to colors
         unique_groups = gantt[input.group_by()].unique()
-        color_scale = px.colors.qualitative.Safe 
-        group_colors = {group: color_scale[i % len(color_scale)] for i, group in enumerate(unique_groups)}
+        group_colors = make_color_scale(unique_groups)
 
-        # Iterate over each row in the dataset
-        for _, row in gantt.iterrows():
-            if row[input.group_by()] != 'student':  # Filter out rows with Type == 'student'
-                line_trace = go.Scatter(
-                    x=[row['Start'], row['End']],  # X-coordinates for the line
-                    y=[row['Index'], row['Index']],  # Y-coordinates for the line
-                    mode='lines',
-                    line=dict(
-                        color=group_colors[row[input.group_by()]],  # Assign color based on Type
-                        width=15
-                    ),
-                    hoverinfo='none',
-                    showlegend=False
-                )
-                # Add the line trace to the list
-                traces.append(line_trace)
+        # group the gantt-compatible dataframe
+        gantt_df = pd.DataFrame({
+            'x':xs,
+            'y':ys,
+            'group':groups
+        })
+
+        # Iterate over each group in the dataset
+        for group in gantt_df.groupby('group'):
+            traces.append(go.Scatter(
+                name=group[0],
+                x=group[1]['x'].tolist(),
+                y=group[1]['y'].tolist(),
+                mode='lines',
+                hoverinfo='none',
+                line=dict(
+                    color=group_colors[group[1]['group'].unique()[0]],  # Assign color based on Type
+                    width=15
+                ),
+            ))
 
         # config = {
         #     'displayModeBar': True,  # Show the mode bar
@@ -141,22 +145,6 @@ with ui.card():
             dragmode='pan',
             height=len(gantt) * 20+100,  # Adjust height based on number of rows
         )
-
-        # https://community.plotly.com/t/adding-custom-legend-in-plotly/65610/3
-        for k,v in group_colors.items():
-            trace = go.Scatter(
-                x=[None],  # Dummy x-coordinate
-                y=[None],  # Dummy y-coordinate
-                mode='markers',
-                name=k,
-                marker=dict(
-                    size=7, 
-                    symbol='circle',
-                    color=v,  # Colors for each group
-                ),
-                hoverinfo='none'
-            )
-            traces.append(trace)
 
         fig = go.Figure(
             data=traces, 
