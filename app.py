@@ -202,7 +202,7 @@ def plot():
                 mode='lines',
                 line=dict(
                     color=group_colors[row[input.group_by()]],  # Assign color based on Type
-                    width=12
+                    width=15
                 ),
                 text=[row['Text'],row['Text']],  # Hover text
                 hoverinfo='text',
@@ -217,7 +217,12 @@ def plot():
         xaxis=dict(
             showgrid=True,
             showline=True,
-            range=['2014-01-01', '2026-01-01'],  # Adjust the range as needed
+            range=[
+                min(
+                    not_student.loc[not_student['Start']>datetime(1970,1,1),'Start']
+                ), 
+                '2026-01-01'
+            ],  # Adjust the range as needed
             type='date',
             dtick='M12',
             ticklabelstep=1
@@ -230,7 +235,7 @@ def plot():
         hoverlabel=dict(
             bgcolor='white'
         ),
-        height=600,        
+        height=len(not_student) * 20+100,  # Adjust height based on number of rows
     )
 
     colorbar_traces = []
