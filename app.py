@@ -16,10 +16,8 @@ ui.include_css(
     'resources/css/index.css'
 )
 
-# "Click info"
-# @render.code
-# def click_info():
-#     return str(click_reactive.get())
+# Capture the hovered point in a reactive value
+hover_reactive = reactive.value() 
 
 def on_hover(trace, points, state): 
     hover_reactive.set(points.__dict__) 
