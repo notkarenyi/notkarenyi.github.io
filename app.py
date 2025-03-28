@@ -130,7 +130,7 @@ with ui.card():
                 showticklabels=False,
                 zeroline=False,
             ),
-            hovermode='closest',
+            hovermode='y',
             dragmode='pan',
             height=len(gantt) * 20+100,  # Adjust height based on number of rows
         )
