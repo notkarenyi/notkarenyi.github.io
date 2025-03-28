@@ -5,8 +5,7 @@ import plotly.express as px
 import plotly.graph_objects as go
 from shiny import reactive
 from shinywidgets import render_plotly
-import igraph as ig
-import numpy as np
+import networkx as nx
 
 df = pd.read_excel('resources/resume.xlsx',sheet_name='Graph',parse_dates=['Start','End'])
 
@@ -17,23 +16,33 @@ df['Interests'] = df['Interests'].fillna('N/A')
 df = df.sort_values('Start')
 df['Dummy'] = 1
 
-df['Title'] = df['Course/Role'] + df['Organization']
+df['Title'] = df['Course/Role'] + '<br />' + df['Organization'] + '<br />' + df['Interests']
 df['Connection'] = [x.split(', ') if isinstance(x,str) else [] for x in df['Connection']]
 df = df.explode('Connection')
-graph = df[['Title','ID','Connection']]
+df = df.sort_values('ID')
+graph = df[['Title','ID','Connection','Interests']]
 graph['ID'] = graph['ID'].astype('int64')
 graph = graph.rename(columns={
     'Title':'label',
-    'ID':'from',
-    'Connection':'to'
+    'ID':'source',
+    'Connection':'target',
+    'Interests': 'interests'
 })
-edges = graph.loc[~graph['to'].isnull(),['from','to']]
-edges['to'] = edges['to'].astype('int64')
-G = ig.Graph.DataFrame(
-    edges, 
-    directed=True,
-    # vertices=graph[['from','label']]
-)
+edges = graph.loc[~graph['target'].isnull(),['source','target']]
+edges['target'] = edges['target'].astype('int64')
+
+graph = graph.drop_duplicates('source')
+G = nx.Graph()
+G.add_nodes_from(graph['source'])
+G.add_edges_from([(row['source'],row['target']) for i,row in edges.iterrows()])
+nx.set_node_attributes(G, dict(zip(range(1,len(graph)+1),graph['label'].tolist())), "labels")
+nx.set_node_attributes(G, dict(zip(range(1,len(graph)+1),graph['interests'].tolist())), "interests")
+
+# Generate a layout (e.g., Kamada-Kawai layout)
+pos = nx.kamada_kawai_layout(G)
+
+# Assign the layout to the 'pos' attribute of each node
+nx.set_node_attributes(G, pos, 'pos')
 
 # print(df['StartMonth'])
 # print(df.loc[df['StartYear']==2023])
@@ -74,89 +83,106 @@ ui.input_selectize(
 def click_info():
     return str(click_reactive.get())
 
+@render.code
+def text():
+    return edges
+
+# https://plotly.com/python/network-graphs/
 @render_plotly  
-def graph():  
-    # labels=list(G.vs['label'])
-    # N=len(labels)
-    N = len(G.vs)
-    E=[e.tuple for e in G.es]# list of edges
-    layt=G.layout('kk') #kamada-kawai layout
+def network_graph():  
         
-    Xn=[layt[k][0] for k in range(N)]
-    Yn=[layt[k][1] for k in range(N)]
-    Xe=[]
-    Ye=[]
-    for e in E:
-        Xe+=[layt[e[0]][0],layt[e[1]][0], None]
-        Ye+=[layt[e[0]][1],layt[e[1]][1], None]
+    # Get unique interests
+    unique_groups = list(set(graph['interests']))
 
-    trace1=go.Scatter(x=Xe,
-        y=Ye,
-        mode='lines',
-        line= dict(color='rgb(210,210,210)', width=1),
-        hoverinfo='none'
+    # Map each interest to a color
+    color_scale = px.colors.qualitative.Safe  # Use a predefined color scale
+    interest_colors = {interest: color_scale[i % len(color_scale)] for i, interest in enumerate(unique_groups)}
+
+    # Assign colors to nodes based on their interests
+    node_colors = [interest_colors[G.nodes[node]['interests']] for node in G.nodes()]
+
+    edge_x = []
+    edge_y = []
+    for edge in G.edges():
+        x0, y0 = G.nodes[edge[0]]['pos']
+        x1, y1 = G.nodes[edge[1]]['pos']
+        edge_x.append(x0)
+        edge_x.append(x1)
+        edge_x.append(None)
+        edge_y.append(y0)
+        edge_y.append(y1)
+        edge_y.append(None)
+
+    edge_trace = go.Scatter(
+        x=edge_x, 
+        y=edge_y,
+        line=dict(width=0.5, color='#888'),
+        hoverinfo='none',
+        mode='lines'
     )
-    trace2=go.Scatter(x=Xn,
-        y=Yn,
+
+    node_x = []
+    node_y = []
+    for node in G.nodes():
+        x, y = G.nodes[node]['pos']
+        node_x.append(x)
+        node_y.append(y)
+
+    node_trace = go.Scatter(
+        x=node_x, 
+        y=node_y,
         mode='markers',
-        name='ntw',
-        marker=dict(symbol='circle-dot',
-                                    size=5,
-                                    color='#6959CD',
-                                    line=dict(color='rgb(50,50,50)', width=0.5)
-                                    ),
-        # text=labels,
-        # hoverinfo='text'
+        hoverinfo='text',
+        marker=dict(
+            size=20,
+            line_width=2,
+            color=node_colors,
+        )
     )
 
-    axis=dict(
-        showline=False, # hide axis line, grid, ticklabels and  title
-        zeroline=False,
-        showgrid=False,
-        showticklabels=False,
-        title=''
+    node_adjacencies = []
+    node_text = []
+    for node, adjacencies in enumerate(G.adjacency()):
+        node_adjacencies.append(len(adjacencies[1]) + 5)
+    for node in G.nodes():    
+        node_text.append(G.nodes[node]['labels'])
+
+    node_trace.marker.size = node_adjacencies
+    node_trace.text = node_text
+
+    axis = dict(
+        showgrid=False, 
+        zeroline=False, 
+        showticklabels=False
     )
 
-    width=800
-    height=800
-    # layout=go.Layout(title= "Coauthorship network of scientists working on network theory and experiment"+\
-    #             "<br> Data source: <a href='https://networkdata.ics.uci.edu/data.php?id=11'> [1]</a>",
-    #     font= dict(size=12),
-    #     showlegend=False,
-    #     autosize=False,
-    #     width=width,
-    #     height=height,
-    #     xaxis=layout.XAxis(axis),
-    #     yaxis=layout.YAxis(axis),
-    #     margin=layout.Margin(
-    #         l=40,
-    #         r=40,
-    #         b=85,
-    #         t=100,
-    #     ),
-    #     hovermode='closest',
-    #     annotations=[
-    #         dict(
-    #         showarrow=False,
-    #             text='This igraph.Graph has the Kamada-Kawai layout',
-    #             xref='paper',
-    #             yref='paper',
-    #             x=0,
-    #             y=-0.1,
-    #             xanchor='left',
-    #             yanchor='bottom',
-    #             font=dict(
-    #             size=14
-    #             )
-    #             )
-    #         ]
-    #     )
-
-    data=[trace1, trace2]
-    fig=go.Figure(
-        data=data, 
-        # layout=layout
+    fig = go.Figure(data=[edge_trace, node_trace],
+        layout=go.Layout(
+            title=dict(
+                text="Coursework",
+                font=dict(
+                    size=16
+                )
+            ),
+            showlegend=False,
+            hovermode='closest',
+            annotations=[ 
+                dict(
+                    showarrow=True,
+                    xref="paper", 
+                    yref="paper",
+                    x=0.005, y=-0.002 
+                ) 
+            ],
+            xaxis=axis,
+            yaxis=axis
+        )
     )
+
+    fig.update_layout(   
+        template='plotly_white',
+    )
+
     return fig
 
 # Create Gantt chart
