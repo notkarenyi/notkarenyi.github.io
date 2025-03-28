@@ -488,7 +488,7 @@ footer div {
     padding: 0;
 }
 
-footer a, footer p, footer h4 {
+footer a, footer p, footer h4, footer ul {
     font-family: 'Roboto', sans-serif;
     text-decoration: none !important;
     font-size: 12px;
