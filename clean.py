@@ -67,10 +67,11 @@ def create_text(row):
     out += f'{row["End"].month}/{row["End"].year}'
 
     for col in ['Type','Interests','Skills','Technologies']:
-        if len(row[col].split(', ')):
+        bubbles = row[col].split(', ')
+        if len([x for x in bubbles if len(x)]):
             out += '<div class="bubbles">'
-            for skill in row[col].split(', '):
-                out += f'<span class="bubble">{skill}</span>'
+            for bubble in bubbles:
+                out += f'<span class="bubble">{bubble}</span>'
             out += '</div>'  
             out += ''
 
