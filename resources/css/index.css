@@ -259,6 +259,10 @@ a:hover, a:active, a:focus {
     margin: 6px 0;
 }
 
+.form-group.shiny-input-container {
+    width: 100%;
+}
+
 .form-group .control-label {
     margin: 0;
 }

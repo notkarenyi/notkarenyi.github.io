@@ -98,7 +98,7 @@ with ui.card():
 
     ui.h2("Resume")
 
-    with ui.layout_column_wrap(gap="1em"):
+    with ui.layout_column_wrap(gap="2em"):
 
         
         ui.input_selectize(
