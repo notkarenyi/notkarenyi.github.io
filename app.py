@@ -230,6 +230,7 @@ def plot():
         yaxis=dict(
             showgrid=False,
             showticklabels=False,
+            zeroline=False,
         ),
         hovermode='closest',
         hoverlabel=dict(
