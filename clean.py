@@ -1,0 +1,173 @@
+# Preprocess data to cut down on load time
+
+import pandas as pd
+from datetime import datetime
+import networkx as nx
+import plotly.express as px
+import plotly.graph_objects as go
+import pickle
+
+#%% read and clean data
+
+df = pd.read_excel('resources/resume.xlsx',sheet_name='Graph',parse_dates=['Start','End'])
+
+df['Start'] = df['Start'].fillna(datetime(2000,1,1))
+df['End'] = df['End'].fillna(datetime(2000, 1, 1))
+df['Interests'] = df['Interests'].fillna('N/A')
+
+df = df.sort_values('Start')
+df['Dummy'] = 1
+
+df['Title'] = df['Course/Role'] + '<br />' + df['Organization'] + '<br />' + df['Interests']
+df['Connection'] = [x.split(', ') if isinstance(x,str) else [] for x in df['Connection']]
+df = df.explode('Connection')
+df = df.sort_values('ID')
+
+# print(df.loc[df['StartYear']==2023])
+# print(df.columns)
+
+
+#%% define functions
+
+def make_graph_data(df):
+    graph = df[['Title','ID','Connection','Interests']]
+    graph['ID'] = graph['ID'].astype('int64')
+    # graph = graph.loc[graph['Interests']!='N/A']
+    graph = graph.rename(columns={
+        'Title':'label',
+        'ID':'source',
+        'Connection':'target',
+        'Interests': 'interests'
+    })
+    edges = graph.loc[~graph['target'].isnull(),['source','target']]
+    edges['target'] = edges['target'].astype('int64')
+
+    graph = graph.drop_duplicates('source')
+    G = nx.Graph()
+    G.add_nodes_from(graph['source'])
+    G.add_edges_from([(row['source'],row['target']) for i,row in edges.iterrows()])
+    nx.set_node_attributes(G, dict(zip(range(1,len(graph)+1),graph['label'].tolist())), "labels")
+    nx.set_node_attributes(G, dict(zip(range(1,len(graph)+1),graph['interests'].tolist())), "interests")
+
+    # Generate a layout (e.g., Kamada-Kawai layout)
+    pos = nx.kamada_kawai_layout(G)
+
+    # Assign the layout to the 'pos' attribute of each node
+    nx.set_node_attributes(G, pos, 'pos')
+
+    return G
+
+def create_text(row):
+    out = ""
+    for col in ['Course/Role','URL','Organization','Start','End','Type','Interests','Skills','Technologies','Description']:
+        if isinstance(row[col],str):
+            if col == 'URL':
+                out += '<a href="' + row[col] + '" target="blank_">'
+                continue
+            if col == 'Organization':
+                out += row[col] + '</a>'
+            if col == 'Start':
+                out += row[col].month + '/' + row[col].year + ' - '
+                continue
+            if col == 'End':
+                out += row[col].month + '/' + row[col].year
+            if col == 'Skills' or col == 'Technologies':
+                for skill in row[col].split(', '):
+                    out += '<span style="padding:1em; background-color: rgb(165, 165, 255); border-radius: 5px;">' + skill + '</span>'
+            else:
+                out += row[col]
+            out += '<br />'
+    print(out)
+    return out
+
+def make_gantt_data(df):
+    
+    not_student = df.loc[df['Type']!='student'].sort_values('Start')
+    not_student = not_student.drop_duplicates('ID')
+    not_student = not_student.loc[not_student['End']>datetime(2000,1,1)]
+    not_student['Text'] = not_student.apply(create_text, axis=1)
+    not_student['Index'] = not_student.groupby('Dummy').cumcount() + 1
+    return not_student
+
+def make_color_scale(unique_groups):
+
+    # Create a mapping of groups to colors
+    color_scale = px.colors.qualitative.Safe 
+    group_colors = {group: color_scale[i % len(color_scale)] for i, group in enumerate(unique_groups)}
+
+    return group_colors
+
+def make_graph_traces(G):
+    # Get unique interests
+    unique_groups = list(set(nx.get_node_attributes(G, 'interests').values()))
+
+    # Map each interest to a color
+    color_scale = px.colors.qualitative.Safe  # Use a predefined color scale
+    interest_colors = {interest: color_scale[i % len(color_scale)] for i, interest in enumerate(unique_groups)}
+
+    # Assign colors to nodes based on their interests
+    node_colors = [interest_colors[G.nodes[node]['interests']] for node in G.nodes()]
+
+    edge_x = []
+    edge_y = []
+    for edge in G.edges():
+        xstart, ystart = G.nodes[edge[0]]['pos']
+        xend, yend = G.nodes[edge[1]]['pos']
+        edge_x.append(xstart)
+        edge_x.append(xend)
+        edge_x.append(None) # pick up pen
+        edge_y.append(ystart)
+        edge_y.append(yend)
+        edge_y.append(None) # pick up pen
+
+    edge_trace = go.Scatter(
+        x=edge_x, 
+        y=edge_y,
+        line=dict(width=0.5, color='#888'),
+        hoverinfo='none',
+        mode='lines'
+    )
+
+    node_x = []
+    node_y = []
+    for node in G.nodes():
+        x, y = G.nodes[node]['pos']
+        node_x.append(x)
+        node_y.append(y)
+
+    node_trace = go.Scatter(
+        x=node_x, 
+        y=node_y,
+        mode='markers',
+        hoverinfo='text',
+        marker=dict(
+            size=20,
+            line_width=2,
+            color=node_colors,
+        )
+    )
+
+    node_adjacencies = []
+    node_text = []
+    for node, adjacencies in enumerate(G.adjacency()):
+        node_adjacencies.append(len(adjacencies[1])*2 + 8)
+    for node in G.nodes():    
+        node_text.append(G.nodes[node]['labels'])
+
+    node_trace.marker.size = node_adjacencies
+    node_trace.text = node_text
+
+    return edge_trace,node_trace
+    
+
+#%% store data
+
+not_student = make_gantt_data(df)
+# traces = make_gantt_traces(not_student)
+# pickle.dump(traces, open('gantt.pickle', 'wb'))
+not_student.to_excel('resources/gantt.xlsx',index=False)
+
+G = make_graph_data(df)
+edge_trace,node_trace=make_graph_traces(G)
+pickle.dump(edge_trace, open('edge_trace.pickle', 'wb'))
+pickle.dump(node_trace, open('node_trace.pickle', 'wb'))
