@@ -218,6 +218,41 @@ a:hover, a:active, a:focus {
    color: rgb(165, 165, 255) !important;
 }
 
+/* Graphs */
+
+iframe {
+    padding: 1em 0;
+    margin-left: auto;
+    margin-right: auto;
+    height: 1400px;
+    width: 70vw;
+}
+
+#gantt, #network-graph {
+    width: min(600px,70vw) !important;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.card.bslib-card.bslib-mb-spacing.html-fill-item.html-fill-container {
+    width: 100%;
+}
+
+.card-body h2 {
+    margin: 0;
+}
+
+/* dropdown and buttons */
+.selectize-input, .action-button {
+    border-radius: 30px;
+    border: solid 2px rgb(90,90,190);
+    margin: 6px 0;
+}
+
+.form-group .control-label {
+    margin: 0;
+}
+
 /* Images */
 
 .spaced > img {
