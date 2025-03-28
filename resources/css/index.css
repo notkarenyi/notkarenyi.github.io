@@ -11,7 +11,7 @@ body {
     margin: 0;
     padding: 0;
     font-size: 16px;
-    line-height: 26px;
+    line-height: 28px;
     background-color:rgb(165, 165, 255);
 }
 
@@ -235,7 +235,6 @@ a:hover, a:active, a:focus {
     margin-right: auto;
 }
 
-.cursor-crosshair {
 .bubble {
     margin-right: 5px;
     padding: 5px;
@@ -246,6 +245,7 @@ a:hover, a:active, a:focus {
 }
 
 /* find the name of the class in the plotly main-svg draglayer */
+.cursor-crosshair, .cursor-move {
     cursor: pointer !important;
 }
 
