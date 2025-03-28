@@ -250,7 +250,7 @@ a:hover, a:active, a:focus {
 }
 
 #hover_info {
-    line-height: 1px;
+    line-height: 15px;
 }
 
 .card {
