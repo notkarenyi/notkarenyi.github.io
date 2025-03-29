@@ -42,6 +42,12 @@ hover_reactive = reactive.value("Click or hover over data to view details. Doubl
 def on_hover(_, points, __): 
     hover_reactive.set(points.__dict__)
 
+config = {
+    'displayModeBar': True,  # Show the mode bar
+    'modeBarButtonsToRemove': ['select2d', 'lasso2d', 'autoscale', 'zoomin', 'zoomout'],  # Remove some modebar options
+    'scrollZoom': True,  # Allow scroll zoom
+}
+
 with ui.card():
 
     ui.h2("Resume")
@@ -129,12 +135,6 @@ with ui.card():
                     ),
                 ))
 
-            # config = {
-            #     'displayModeBar': True,  # Show the mode bar
-            #     'modeBarButtonsToRemove': ['select2d', 'lasso2d'],  # Remove box select and lasso select
-            #     'scrollZoom': True,  # Allow scroll zoom
-            # }
-
             layout = go.Layout(
                 xaxis=dict(
                     showgrid=True,
@@ -183,9 +183,12 @@ with ui.card():
 
             # plot as input
             # https://shiny.posit.co/py/components/outputs/plot-plotly/
-            widget = go.FigureWidget(fig.data, fig.layout) 
+            # https://stackoverflow.com/questions/78989286/how-to-pass-config-options-to-plotly-in-shiny-for-python
+            widget = go.FigureWidget(fig) 
             widget.data[0].on_hover(on_hover) 
             widget.data[0].on_click(on_hover) 
+            widget._config = config
+
             return widget
             
         @render.express
@@ -218,10 +221,13 @@ with ui.card():
         axis = dict(
             showgrid=False, 
             zeroline=False, 
-            showticklabels=False
+            showticklabels=False,
+            minallowed=-1.1,
+            maxallowed=1.1,
         )
 
-        fig = go.Figure(data=[edge_trace, node_trace],
+        fig = go.Figure(
+            data=[edge_trace, node_trace],
             layout=go.Layout(
                 showlegend=False,
                 dragmode='pan',
@@ -238,11 +244,14 @@ with ui.card():
                 yaxis=axis,
                 height=750,
                 width=750,
-            )
+            ),
         )
 
         fig.update_layout(   
             template='plotly_white',
         )
+    
+        widget = go.FigureWidget(fig) 
+        widget._config = config
 
-        return fig
+        return widget

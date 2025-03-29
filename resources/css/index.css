@@ -229,6 +229,14 @@ a:hover, a:active, a:focus {
     width: max(90vw,700px);
 }
 
+.modebar-container, .modebar, .modebar--hover {
+    left: 0 !important;
+}
+
+.modebar-group {
+    padding-left: 0 !important;
+}
+
 #gantt, #network_graph {
     width: min(750px,70vw) !important;
     margin-left: auto;
