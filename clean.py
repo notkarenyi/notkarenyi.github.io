@@ -79,7 +79,8 @@ def create_text(row):
         bubbles = row[col].split(', ')
         if len([x for x in bubbles if len(x)]):
             for bubble in bubbles:
-                out += f'<span class="bubble">{bubble}</span>'
+                if bubble!='N/A':
+                    out += f'<span class="bubble">{bubble}</span>'
     out += '</div>'  
 
     if len(row['Award']):
