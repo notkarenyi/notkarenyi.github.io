@@ -683,6 +683,9 @@ footer img {
 
     #resume {
         width: 95vw;
-        height: 1500px;
+    }
+
+    #experience {
+        height: 2000px;
     }
 }
