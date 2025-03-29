@@ -47,6 +47,7 @@ with ui.card():
     def gantt_chart():  
                 
         gantt = pd.read_excel('resources/gantt.xlsx',index_col=None)
+        gantt['End'] = [datetime.today() if x==datetime(2100,1,1) else x for x in gantt['End']]
 
         if input.filter_by() == 'Jobs':
             gantt = gantt.loc[gantt['Type']!='member']
@@ -170,6 +171,8 @@ with ui.card():
     @render.express
     def hover_info():
         gantt = pd.read_excel('resources/gantt.xlsx',index_col=None)
+        
+        gantt['Text'] = gantt['Text'].apply(lambda x: x.replace('1/2100',f"{datetime.today().month}/{datetime.today().year}"))
 
         if input.filter_by() == 'Jobs':
             gantt = gantt.loc[gantt['Type']!='member']
