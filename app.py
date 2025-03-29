@@ -14,12 +14,6 @@ ui.include_css(
     'resources/css/index.css'
 )
 
-# Capture the hovered point in a reactive value
-hover_reactive = reactive.value() 
-
-def on_hover(_, points, __): 
-    hover_reactive.set(points.__dict__)
-
 @reactive.calc
 def filter_data():
     gantt = pd.read_excel('resources/gantt.xlsx',index_col=None)
@@ -41,11 +35,15 @@ def filter_data():
 
     return gantt
 
+# Capture the hovered point in a reactive value
+hover_reactive = reactive.value("Click or hover over data to view details. Double-click to reset pan or zoom.") 
+
+def on_hover(_, points, __): 
+    hover_reactive.set(points.__dict__)
+
 with ui.card():
 
     ui.h2("Resume")
-
-    "Click or hover over data to view details. Double-click to reset pan or zoom."
         
     with ui.layout_column_wrap(gap="1rem"):
         
@@ -188,12 +186,19 @@ with ui.card():
             widget.data[0].on_hover(on_hover) 
             widget.data[0].on_click(on_hover) 
             return widget
-        
-        point = hover_reactive.get()
-        text = gantt.loc[gantt['Index']==point['_ys'][0],'Text'].values[0]
+            
+        @render.express
+        def hover_info():
+            point = hover_reactive.get()
 
-        # express does not allow returns but displays each line dynamically 
-        ui.HTML(text)
+            if not isinstance(point,str):
+                gantt = filter_data()
+                text = gantt.loc[gantt['Index']==point['_ys'][0],'Text'].values[0]
+
+                # express does not allow returns but displays each line dynamically 
+                ui.HTML(text)
+            else:
+                point
 
 with ui.card():
     ui.h2("Experience")
