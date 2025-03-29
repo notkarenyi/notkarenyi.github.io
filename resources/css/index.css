@@ -24,6 +24,10 @@ p {
     padding-bottom: .5em;
 }
 
+nav a, footer h4, h1 {
+    text-transform: uppercase;
+}
+
 /* Organizational */
 
 .wrapper-container {
@@ -174,7 +178,6 @@ nav a {
     height: 1rem;
     margin: 0.8em;
     color: white;
-    text-transform: uppercase;
 }
 
 nav a:hover, nav a:active, nav a:focus {
@@ -555,7 +558,6 @@ footer h4 {
     line-height: 24px;
     letter-spacing: 2px;
     font-weight: 700;
-    text-transform: uppercase;
 }
 
 footer a, footer p, footer ul {
