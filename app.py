@@ -133,12 +133,18 @@ with ui.card():
                 ],  # Adjust the range as needed
                 type='date',
                 dtick='M12',
-                ticklabelstep=1
+                ticklabelstep=1,
+                minallowed=min(
+                    gantt.loc[gantt['Start']>datetime(1970,1,1),'Start']
+                ),
+                maxallowed='2026-01-01'
             ),
             yaxis=dict(
                 showgrid=False,
                 showticklabels=False,
                 zeroline=False,
+                minallowed=0,
+                maxallowed=max(gantt['Index'])
             ),
             hovermode='y',
             dragmode='pan',
