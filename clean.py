@@ -74,7 +74,9 @@ def create_text(row):
                 out += f'<span class="bubble">{bubble}</span>'
     out += '</div>'  
 
-    out += row['Description'] + ''
+    if len(row['Award']):
+        out += '<span>' + row['Award'] + '</span>'
+    out += row['Description']
 
     print(out)
     return out
