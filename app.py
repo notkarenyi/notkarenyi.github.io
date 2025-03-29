@@ -144,15 +144,15 @@ with ui.card():
                         min(
                             gantt.loc[gantt['Start']>datetime(1970,1,1),'Start']
                         ), 
-                        '2026-01-01'
-                    ],  # Adjust the range as needed
+                        datetime.today() + relativedelta(years=1)
+                    ],
                     type='date',
                     dtick='M12',
                     ticklabelstep=1,
                     minallowed=min(
                         gantt.loc[gantt['Start']>datetime(1970,1,1),'Start']
                     ),
-                    maxallowed='2026-01-01'
+                    maxallowed=datetime.today() + relativedelta(years=3)
                 ),
                 yaxis=dict(
                     showgrid=False,
