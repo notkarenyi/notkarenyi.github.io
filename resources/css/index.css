@@ -226,7 +226,7 @@ a:hover, a:active, a:focus {
     margin-left: auto;
     margin-right: auto;
     height: 100%;
-    width: 70vw;
+    width: max(90vw,700px);
 }
 
 #gantt, #network_graph {
@@ -601,7 +601,7 @@ footer img {
     }
 
     .wide {
-        width: 95%;
+        width: 95% !important;
     }
 
     .split img {
@@ -686,6 +686,6 @@ footer img {
     }
 
     #experience {
-        height: 2000px;
+        height: 2300px;
     }
 }
