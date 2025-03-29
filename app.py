@@ -171,6 +171,13 @@ with ui.card():
 
         fig.update_layout(   
             template='plotly_white',
+            legend=dict(
+                orientation="h",
+                yanchor="top",
+                y=0-1/(len(gantt)**1.4)*10,
+                xanchor="left",
+                x=-.02
+            )
         )
 
         # plot as input
