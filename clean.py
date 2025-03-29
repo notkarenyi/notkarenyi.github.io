@@ -29,6 +29,10 @@ df = df.sort_values('ID')
 #%% define functions
 
 def make_graph_data(df):
+    """
+    Create a network from experiences dataframe
+    """
+
     graph = df[['Title','ID','Connection','Interests']]
     graph['ID'] = graph['ID'].astype('int64')
     # graph = graph.loc[graph['Interests']!='N/A']
@@ -57,6 +61,10 @@ def make_graph_data(df):
     return G
 
 def create_text(row):
+    """
+    Combine feature columns into stylized HTML
+    """
+
     row = row.fillna("")
 
     out = ""
@@ -82,15 +90,27 @@ def create_text(row):
     return out
 
 def make_gantt_data(df):
+    """
+    Clean data for Gantt chart
+    """
     
-    not_student = df.loc[df['Type']!='student'].sort_values('Start')
-    not_student = not_student.drop_duplicates('ID')
-    not_student = not_student.loc[not_student['End']>datetime(2000,1,1)]
-    not_student['Text'] = not_student.apply(create_text, axis=1)
-    not_student['Index'] = not_student.groupby('Dummy').cumcount() + 1
-    return not_student
+    # do not show coursework except associated with award
+    df = df.loc[(df['Type']!='student') | (len(df['Award'])>0)].sort_values('Start')
+
+    df = df.loc[df['End']>datetime(2000,1,1)]
+
+    df = df.drop_duplicates('ID')
+
+    df['Text'] = df.apply(create_text, axis=1)
+    df['Index'] = df.groupby('Dummy').cumcount() + 1
+    return df
 
 def make_color_scale(unique_groups):
+    """
+    Create a dictionary mapping groups to colors in a specified palette
+
+    Cite: Copilot
+    """
 
     # Create a mapping of groups to colors
     color_scale = px.colors.qualitative.Safe 
@@ -99,12 +119,17 @@ def make_color_scale(unique_groups):
     return group_colors
 
 def make_graph_traces(G):
+    """
+    Generate plotly-compatible data for network graph
+
+    Cite: https://plotly.com/python/network-graphs/
+    """
+
     # Get unique interests
     unique_groups = list(set(nx.get_node_attributes(G, 'interests').values()))
 
     # Map each interest to a color
-    color_scale = px.colors.qualitative.Safe  # Use a predefined color scale
-    interest_colors = {interest: color_scale[i % len(color_scale)] for i, interest in enumerate(unique_groups)}
+    interest_colors = make_color_scale(unique_groups)
 
     # Assign colors to nodes based on their interests
     node_colors = [interest_colors[G.nodes[node]['interests']] for node in G.nodes()]
@@ -163,10 +188,8 @@ def make_graph_traces(G):
 
 #%% store data
 
-not_student = make_gantt_data(df)
-# traces = make_gantt_traces(not_student)
-# pickle.dump(traces, open('gantt.pickle', 'wb'))
-not_student.to_excel('resources/gantt.xlsx',index=False)
+gantt = make_gantt_data(df)
+gantt.to_excel('resources/gantt.xlsx',index=False)
 
 G = make_graph_data(df)
 edge_trace,node_trace=make_graph_traces(G)
