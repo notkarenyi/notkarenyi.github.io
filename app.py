@@ -144,8 +144,8 @@ with ui.card():
                 showgrid=False,
                 showticklabels=False,
                 zeroline=False,
-                minallowed=0,
-                maxallowed=max(gantt['Index'])
+                minallowed=-1,
+                maxallowed=max(gantt['Index'])+1
             ),
             hovermode='y',
             dragmode='pan',
@@ -171,7 +171,7 @@ with ui.card():
     @render.express
     def hover_info():
         gantt = pd.read_excel('resources/gantt.xlsx',index_col=None)
-        
+
         gantt['Text'] = gantt['Text'].apply(lambda x: x.replace('1/2100',f"{datetime.today().month}/{datetime.today().year}"))
 
         if input.filter_by() == 'Jobs':
