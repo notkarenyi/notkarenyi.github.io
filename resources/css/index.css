@@ -546,7 +546,7 @@ footer h4 {
     text-transform: uppercase;
 }
 
-footer a {
+footer a, footer p, footer ul {
     color: white;
 }
 
