@@ -194,7 +194,10 @@ with ui.card():
 
             if not isinstance(point,str):
                 gantt = filter_data()
-                text = gantt.loc[gantt['Index']==point['_ys'][0],'Text'].values[0]
+                try:
+                    text = gantt.loc[gantt['Index']==point['_ys'][0],'Text'].values[0]
+                except Exception as e:
+                    text = gantt['Text'].head(1).values[0]
 
                 # express does not allow returns but displays each line dynamically 
                 ui.HTML(text)
