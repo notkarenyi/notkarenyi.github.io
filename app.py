@@ -20,6 +20,27 @@ hover_reactive = reactive.value()
 def on_hover(_, points, __): 
     hover_reactive.set(points.__dict__)
 
+@reactive.calc
+def filter_data():
+    gantt = pd.read_excel('resources/gantt.xlsx',index_col=None)
+    gantt['End'] = [datetime.today() if x==datetime(2100,1,1) else x for x in gantt['End']]
+
+    if input.filter_by() == 'Jobs':
+        gantt = gantt.loc[gantt['Type']!='member']
+        gantt = gantt.loc[gantt['Type']!='volunteer']
+    elif input.filter_by() == 'Main':
+        gantt = gantt.loc[gantt['Main']==True]
+    elif input.filter_by() == 'Awards':
+        gantt['Award'] = gantt['Award'].fillna('')
+        gantt = gantt.loc[gantt['Award']!='']
+
+    if not input.filter_by() == 'Awards':
+        gantt = gantt.loc[gantt['Type']!='student']
+
+    gantt['Index'] = range(len(gantt))  # Create a new index for y-axis]
+
+    return gantt
+
 with ui.card():
 
     ui.h2("Resume")
@@ -37,7 +58,7 @@ with ui.card():
         ui.input_selectize(
             "filter_by", 
             "Filter by", 
-            choices=['Main','Jobs','All'], 
+            choices=['Main','Jobs','Awards','All'], 
             selected='Main'
         )
 
@@ -46,16 +67,7 @@ with ui.card():
     @render_plotly  
     def gantt_chart():  
                 
-        gantt = pd.read_excel('resources/gantt.xlsx',index_col=None)
-        gantt['End'] = [datetime.today() if x==datetime(2100,1,1) else x for x in gantt['End']]
-
-        if input.filter_by() == 'Jobs':
-            gantt = gantt.loc[gantt['Type']!='member']
-            gantt = gantt.loc[gantt['Type']!='volunteer']
-        elif input.filter_by() == 'Main':
-            gantt = gantt.loc[gantt['Main']==True]
-
-        gantt['Index'] = range(len(gantt))  # Create a new index for y-axis]
+        gantt = filter_data()
 
         xs = []
         ys = []
@@ -170,18 +182,8 @@ with ui.card():
     
     @render.express
     def hover_info():
-        gantt = pd.read_excel('resources/gantt.xlsx',index_col=None)
-
-        gantt['Text'] = gantt['Text'].apply(lambda x: x.replace('1/2100',f"{datetime.today().month}/{datetime.today().year}"))
-
-        if input.filter_by() == 'Jobs':
-            gantt = gantt.loc[gantt['Type']!='member']
-            gantt = gantt.loc[gantt['Type']!='volunteer']
-        elif input.filter_by() == 'Main':
-            gantt = gantt.loc[gantt['Main']==True]
-
-        gantt['Index'] = range(len(gantt))  # Create a new index for y-axis]
-
+        gantt = filter_data()
+        
         point = hover_reactive.get()
         text = gantt.loc[gantt['Index']==point['_ys'][0],'Text'].values[0]
 

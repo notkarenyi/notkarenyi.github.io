@@ -76,7 +76,7 @@ def create_text(row):
 
     if len(row['Award']):
         out += f"<span>🏆 {row['Award']}</span>"
-    out += row['Description']
+    out += f"<p>{row['Description']}</p>"
 
     print(out)
     return out
