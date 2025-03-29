@@ -162,7 +162,7 @@ with ui.card():
                 ),
                 hovermode='y',
                 dragmode='pan',
-                height=len(gantt)**1.1*20+100,  # Adjust height based on number of rows
+                height=len(gantt)*25+100,  # Adjust height based on number of rows
             )
 
             fig = go.Figure(
@@ -175,9 +175,9 @@ with ui.card():
                 legend=dict(
                     orientation="h",
                     yanchor="top",
-                    y=0-1/(len(gantt)**1.4)*10,
+                    y=0-1/(len(gantt)**1.1)*3,
                     xanchor="left",
-                    x=-.02
+                    x=-.04
                 )
             )
 
