@@ -2,6 +2,7 @@ import pickle
 import pandas as pd
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
+# future: use dash instead of shiny
 from shiny.express import input, render, ui
 import plotly.graph_objects as go
 from shiny import reactive
