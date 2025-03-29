@@ -20,6 +20,7 @@ ui.include_css(
 def filter_data():
     gantt = pd.read_excel('resources/gantt.xlsx',index_col=None)
     gantt['End'] = [datetime.today() if x==datetime(2100,1,1) else x for x in gantt['End']]
+    gantt['Text'] = gantt['Text'].apply(lambda x: x.replace('1/2100','Present'))
 
     if input.filter_by() == 'Jobs':
         gantt = gantt.loc[gantt['Type']!='member']
