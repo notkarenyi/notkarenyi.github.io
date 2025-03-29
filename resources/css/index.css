@@ -259,6 +259,10 @@ a:hover, a:active, a:focus {
     line-height: 15px;
 }
 
+#hover_info p {
+    line-height: 20px;
+}
+
 .card {
     border-radius: 0px;
     box-shadow: none;
