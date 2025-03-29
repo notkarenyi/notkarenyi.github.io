@@ -158,8 +158,9 @@ with ui.card():
                     showgrid=False,
                     showticklabels=False,
                     zeroline=False,
+                    range=[-1,len(gantt)+1],
                     minallowed=-1,
-                    maxallowed=max(gantt['Index'])+1
+                    maxallowed=len(gantt)+1
                 ),
                 hovermode='y',
                 dragmode='pan',
