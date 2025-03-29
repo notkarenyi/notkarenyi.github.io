@@ -165,7 +165,7 @@ with ui.card():
                 ),
                 hovermode='y',
                 dragmode='pan',
-                height=len(gantt)*25+100,  # Adjust height based on number of rows
+                height=min(len(gantt)*25+100,750),  # Adjust height based on number of rows
             )
 
             fig = go.Figure(
