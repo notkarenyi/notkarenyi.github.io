@@ -103,7 +103,6 @@ def make_gantt_data(df):
     df = df.drop_duplicates('ID')
 
     df['Text'] = df.apply(create_text, axis=1)
-    df['Index'] = df.groupby('Dummy').cumcount() + 1
     return df
 
 def make_color_scale(unique_groups):
