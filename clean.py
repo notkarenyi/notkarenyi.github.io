@@ -216,6 +216,7 @@ def make_node_trace(G):
             'size': get_degrees(G),
             'line_width': 2,
             'color': node_colors,
+            'opacity': 1,
         }
     )
 
