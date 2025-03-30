@@ -31,6 +31,8 @@ df = df.sort_values('ID')
 def make_graph_data(df):
     """
     Create a network from experiences dataframe
+
+    Cite: https://medium.com/@harshkjoya/connecting-the-dots-creating-network-graphs-from-pandas-dataframes-with-networkx-9c4fb60089cf
     """
 
     graph = df[['Title','ID','Connection','Interests']]
@@ -108,7 +110,7 @@ def create_text(row):
         out += f"<span>🏆 {row['Award']}</span>"
     out += f"<p>{row['Description']}</p>"
 
-    print(out)
+    # print(out)
     return out
 
 def make_gantt_data(df):
