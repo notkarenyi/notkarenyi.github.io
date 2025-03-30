@@ -151,7 +151,14 @@ def make_graph_traces(G):
         y=edge_y,
         line=dict(width=0.5, color='#888'),
         hoverinfo='none',
-        mode='lines'
+        mode="lines+markers",
+        # https://community.plotly.com/t/triangle-symbol-placed-at-the-end-of-a-line/81289/4
+        marker={
+            'symbol':'arrow',
+            'angleref':"previous",
+            'size':3,
+            'standoff': 5,
+        }
     )
 
     node_x = []
