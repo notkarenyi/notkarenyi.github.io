@@ -180,7 +180,7 @@ with ui.card():
                     minallowed=min(
                         gantt.loc[gantt['Start']>datetime(1970,1,1),'Start']
                     ),
-                    maxallowed=datetime.today() + relativedelta(years=3)
+                    maxallowed=datetime.today() + relativedelta(years=5)
                 ),
                 yaxis=dict(
                     showgrid=False,
@@ -256,8 +256,8 @@ with ui.card():
             showgrid=False, 
             zeroline=False, 
             showticklabels=False,
-            minallowed=minimum-(maximum-minimum)*.3,
-            maxallowed=maximum+(maximum-minimum)*.3,
+            minallowed=minimum-(maximum-minimum)*.5,
+            maxallowed=maximum+(maximum-minimum)*.5,
         )
 
         fig = go.Figure(
