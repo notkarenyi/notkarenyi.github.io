@@ -49,8 +49,29 @@ def make_graph_data(df):
     G = nx.Graph()
     G.add_nodes_from(graph['source'])
     G.add_edges_from([(row['source'],row['target']) for i,row in edges.iterrows()])
-    nx.set_node_attributes(G, dict(zip(range(1,len(graph)+1),graph['label'].tolist())), "labels")
-    nx.set_node_attributes(G, dict(zip(range(1,len(graph)+1),graph['interests'].tolist())), "interests")
+
+    nx.set_node_attributes(
+        G, 
+        dict(zip(range(1,len(graph)+1),graph['label'].tolist())), 
+        "labels"
+    )
+    nx.set_node_attributes(
+        G, 
+        dict(zip(range(1,len(graph)+1),graph['interests'].tolist())), 
+        "interests"
+    )
+    nx.set_node_attributes(
+        G, 
+        dict(zip(range(1,len(graph)+1),graph['interests'].tolist())), 
+        "interests"
+    )
+
+    # weight by inverse degree such that those with more connections are farther apart
+    nx.set_node_attributes(
+        G, 
+        dict([(node, 1/degree) for node, degree in G.degree]), 
+        "weight"
+    )
 
     # Generate a layout (e.g., Kamada-Kawai layout)
     pos = nx.kamada_kawai_layout(G)
