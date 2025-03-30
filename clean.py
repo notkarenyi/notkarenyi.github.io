@@ -118,21 +118,12 @@ def make_color_scale(unique_groups):
 
     return group_colors
 
-def make_graph_traces(G):
+def make_edge_trace(G):
     """
-    Generate plotly-compatible data for network graph
+    Generate plotly-compatible data for edges of network graph
 
     Cite: https://plotly.com/python/network-graphs/
     """
-
-    # Get unique interests
-    unique_groups = list(set(nx.get_node_attributes(G, 'interests').values()))
-
-    # Map each interest to a color
-    interest_colors = make_color_scale(unique_groups)
-
-    # Assign colors to nodes based on their interests
-    node_colors = [interest_colors[G.nodes[node]['interests']] for node in G.nodes()]
 
     edge_x = []
     edge_y = []
@@ -161,6 +152,7 @@ def make_graph_traces(G):
         }
     )
 
+    return edge_trace
 
 def get_degrees(G):
   
@@ -169,6 +161,23 @@ def get_degrees(G):
         node_degrees.append((len(adjacencies[1])**.8)*3 + 8)
     
     return node_degrees
+
+def make_node_trace(G):
+    """
+    Generate plotly-compatible data for nodes of network graph
+
+    Cite: https://plotly.com/python/network-graphs/
+    """
+
+    # Get unique interests
+    unique_groups = list(set(nx.get_node_attributes(G, 'interests').values()))
+
+    # Map each interest to a color
+    interest_colors = make_color_scale(unique_groups)
+
+    # Assign colors to nodes based on their interests
+    node_colors = [interest_colors[G.nodes[node]['interests']] for node in G.nodes()]
+    
     node_x = []
     node_y = []
     for node in G.nodes():
@@ -189,8 +198,6 @@ def get_degrees(G):
         }
     )
 
-    return edge_trace,node_trace
-    
     return node_trace    
 
 #%% store data
@@ -199,6 +206,7 @@ gantt = make_gantt_data(df)
 gantt.to_excel('resources/gantt.xlsx',index=False)
 
 G = make_graph_data(df)
-edge_trace,node_trace=make_graph_traces(G)
+edge_trace=make_edge_trace(G)
+node_trace=make_node_trace(G)
 pickle.dump(edge_trace, open('edge_trace.pickle', 'wb'))
 pickle.dump(node_trace, open('node_trace.pickle', 'wb'))
