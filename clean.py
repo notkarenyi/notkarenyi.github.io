@@ -135,8 +135,21 @@ def make_color_scale(unique_groups):
     Cite: Copilot
     """
 
-    # Create a mapping of groups to colors
-    color_scale = px.colors.qualitative.Safe[:-1] + ['rgb(165, 165, 255)'] 
+    # px.colors.qualitative.Safe palette with some adjustments
+    color_scale =  [
+        'rgb(136, 204, 238)',
+        'rgb(204, 102, 119)',
+        'rgb(221, 204, 119)',
+        'rgb(17, 119, 51)',
+        'rgb(51, 34, 136)',
+        'rgb(170, 68, 153)',
+        'rgb(68, 170, 153)',
+        'rgb(136, 180, 14)',
+        'rgb(136, 34, 85)',
+        'rgb(102, 17, 0)',
+        'rgb(165, 165, 255)'
+    ]
+    # map to groups
     group_colors = {group: color_scale[i % len(color_scale)] for i, group in enumerate(unique_groups)}
 
     return group_colors
