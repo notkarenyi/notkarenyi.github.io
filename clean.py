@@ -183,7 +183,7 @@ def make_edge_trace(G):
         marker={
             'symbol':'arrow',
             'angleref':"previous",
-            'size':4,
+            'size':5,
             'standoff': 5,
         }
     )
