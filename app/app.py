@@ -45,7 +45,7 @@ ui.include_css(
 
 @reactive.calc
 def filter_data():
-    gantt = pd.read_excel('resources/gantt.xlsx',index_col=None)
+    gantt = pd.read_excel('gantt.xlsx',index_col=None)
     gantt['End'] = [datetime.today() if x==datetime(2100,1,1) else x for x in gantt['End']]
     gantt['Text'] = gantt['Text'].apply(lambda x: x.replace('1/2100','Present'))
 
