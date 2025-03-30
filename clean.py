@@ -161,6 +161,14 @@ def make_graph_traces(G):
         }
     )
 
+
+def get_degrees(G):
+  
+    node_degrees = []
+    for node, adjacencies in enumerate(G.adjacency()):
+        node_degrees.append((len(adjacencies[1])**.8)*3 + 8)
+    
+    return node_degrees
     node_x = []
     node_y = []
     for node in G.nodes():
@@ -172,26 +180,18 @@ def make_graph_traces(G):
         x=node_x, 
         y=node_y,
         mode='markers',
+        text=[G.nodes[node]['labels'] for node in G.nodes()],
         hoverinfo='text',
-        marker=dict(
-            size=20,
-            line_width=2,
-            color=node_colors,
-        )
+        marker={
+            'size': get_degrees(G),
+            'line_width': 2,
+            'color': node_colors,
+        }
     )
-
-    node_adjacencies = []
-    node_text = []
-    for node, adjacencies in enumerate(G.adjacency()):
-        node_adjacencies.append(len(adjacencies[1])*2 + 8)
-    for node in G.nodes():    
-        node_text.append(G.nodes[node]['labels'])
-
-    node_trace.marker.size = node_adjacencies
-    node_trace.text = node_text
 
     return edge_trace,node_trace
     
+    return node_trace    
 
 #%% store data
 
