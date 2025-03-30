@@ -1,4 +1,7 @@
 # Preprocess data to cut down on load time
+
+#%% imports
+
 import os
 import pathlib
 import sys
@@ -48,12 +51,14 @@ def make_graph_data(df):
     graph = df[['Title','ID','Connection','Interests']]
     graph['ID'] = graph['ID'].astype('int64')
     # graph = graph.loc[graph['Interests']!='N/A']
+
     graph = graph.rename(columns={
         'Title':'label',
         'ID':'source',
         'Connection':'target',
         'Interests': 'interests'
     })
+
     edges = graph.loc[~graph['target'].isnull(),['source','target']]
     edges['target'] = edges['target'].astype('int64')
 
@@ -149,8 +154,11 @@ def make_color_scale(unique_groups):
         'rgb(102, 17, 0)',
         'rgb(165, 165, 255)'
     ]
+
     # map to groups
-    group_colors = {group: color_scale[i % len(color_scale)] for i, group in enumerate(unique_groups)}
+    group_colors = {
+        group: color_scale[i % len(color_scale)] for i, group in enumerate(unique_groups)
+    }
 
     return group_colors
 
