@@ -213,6 +213,8 @@ with ui.card():
 with ui.card():
     ui.h2("Experience")
 
+    'Experiences are connected if the former was either useful to or directly inspired the latter.'
+
     # https://plotly.com/python/network-graphs/
     @render_plotly  
     def network_graph():  
