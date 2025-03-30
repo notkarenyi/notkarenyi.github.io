@@ -223,12 +223,14 @@ with ui.card():
         edge_trace = pickle.load(open('edge_trace.pickle', 'rb'))
         node_trace = pickle.load(open('node_trace.pickle', 'rb'))
 
+        minimum = min([x for x in edge_trace['x'] if x!=None])
+        maximum = max([x for x in edge_trace['x'] if x!=None])
         axis = dict(
             showgrid=False, 
             zeroline=False, 
             showticklabels=False,
-            minallowed=-1.1,
-            maxallowed=1.1,
+            minallowed=minimum-(maximum-minimum)*.3,
+            maxallowed=maximum+(maximum-minimum)*.3,
         )
 
         fig = go.Figure(
