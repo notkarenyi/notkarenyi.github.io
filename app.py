@@ -235,14 +235,6 @@ with ui.card():
                 showlegend=False,
                 dragmode='pan',
                 hovermode='closest',
-                annotations=[ 
-                    dict(
-                        showarrow=True,
-                        xref="paper", 
-                        yref="paper",
-                        x=0.005, y=-0.002 
-                    ) 
-                ],
                 xaxis=axis,
                 yaxis=axis,
                 height=750,
