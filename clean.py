@@ -134,7 +134,7 @@ def make_color_scale(unique_groups):
     """
 
     # Create a mapping of groups to colors
-    color_scale = px.colors.qualitative.Safe 
+    color_scale = px.colors.qualitative.Safe[:-1] + ['rgb(165, 165, 255)'] 
     group_colors = {group: color_scale[i % len(color_scale)] for i, group in enumerate(unique_groups)}
 
     return group_colors
