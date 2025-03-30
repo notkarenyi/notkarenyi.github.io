@@ -159,7 +159,7 @@ with ui.card():
                     showgrid=False,
                     showticklabels=False,
                     zeroline=False,
-                    range=[-1,len(gantt)+1],
+                    range=[-.5,len(gantt)+.5],
                     minallowed=-1,
                     maxallowed=len(gantt)+1
                 ),
@@ -178,7 +178,7 @@ with ui.card():
                 legend=dict(
                     orientation="h",
                     yanchor="top",
-                    y=0-1/(len(gantt)**1.1)*3,
+                    y=0-1/(len(gantt)**1.1)*3.5,
                     xanchor="left",
                     x=-.04
                 )
