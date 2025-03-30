@@ -72,11 +72,6 @@ def make_graph_data(df):
         dict(zip(range(1,len(graph)+1),graph['interests'].tolist())), 
         "interests"
     )
-    nx.set_node_attributes(
-        G, 
-        dict(zip(range(1,len(graph)+1),graph['interests'].tolist())), 
-        "interests"
-    )
 
     # weight by inverse degree such that those with more connections are farther apart
     nx.set_node_attributes(
