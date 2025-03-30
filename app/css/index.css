@@ -134,7 +134,7 @@ article .left h3, article .left p {
 #splash {
     height: 98vh;
     top: 0;
-    background: url(../../resourcesyi.png) no-repeat center center fixed;
+    background: url(../../resources/yi.png) no-repeat center center fixed;
     background-size: cover;
 }
 
