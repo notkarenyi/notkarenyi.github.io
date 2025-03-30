@@ -191,12 +191,7 @@ def make_edge_trace(G):
     return edge_trace
 
 def get_degrees(G):
-  
-    node_degrees = []
-    for node, adjacencies in enumerate(G.adjacency()):
-        node_degrees.append((len(adjacencies[1])**.8)*3 + 8)
-    
-    return node_degrees
+    return [G.degree(node) for node in G.nodes()]
 
 def make_node_trace(G):
     """
@@ -228,7 +223,7 @@ def make_node_trace(G):
         text=[G.nodes[node]['labels'] for node in G.nodes()],
         hoverinfo='text',
         marker={
-            'size': get_degrees(G),
+            'size': [x**.8*3+8 for x in get_degrees(G)],
             'line_width': 2,
             'color': node_colors,
             'opacity': 1,
