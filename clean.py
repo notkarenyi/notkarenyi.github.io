@@ -243,10 +243,10 @@ def make_node_trace(G):
 #%% store data
 
 gantt = make_gantt_data(df)
-gantt.to_excel('resources/gantt.xlsx',index=False)
+gantt.to_excel('app/gantt.xlsx',index=False)
 
 G = make_graph_data(df)
 edge_trace=make_edge_trace(G)
 node_trace=make_node_trace(G)
-pickle.dump(edge_trace, open('edge_trace.pickle', 'wb'))
-pickle.dump(node_trace, open('node_trace.pickle', 'wb'))
+pickle.dump(edge_trace, open('app/edge_trace.pickle', 'wb'))
+pickle.dump(node_trace, open('app/node_trace.pickle', 'wb'))
