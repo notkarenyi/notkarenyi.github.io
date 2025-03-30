@@ -1,8 +1,18 @@
 # Preprocess data to cut down on load time
+import os
+import pathlib
+import sys
+
+# https://github.com/pygraphviz/pygraphviz/issues/186
+if sys.platform == 'win32':
+    path = pathlib.Path(r'C:\Program Files\Graphviz\bin')
+    if path.is_dir() and str(path) not in os.environ['PATH']:
+        os.environ['PATH'] += f';{path}'
 
 import pandas as pd
 from datetime import datetime
 import networkx as nx
+import pygraphviz
 import plotly.express as px
 import plotly.graph_objects as go
 import pickle
@@ -76,7 +86,9 @@ def make_graph_data(df):
     )
 
     # Generate a layout (e.g., Kamada-Kawai layout)
-    pos = nx.kamada_kawai_layout(G)
+    # pos = nx.kamada_kawai_layout(G)
+    # pos = nx.nx_agraph.graphviz_layout(G)
+    pos = nx.nx_agraph.graphviz_layout(G,prog='twopi')
 
     # Assign the layout to the 'pos' attribute of each node
     nx.set_node_attributes(G, pos, 'pos')
