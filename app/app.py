@@ -40,7 +40,7 @@ def make_color_scale(unique_groups):
 #%% UI and server
 
 ui.include_css(
-    'resources/css/index.css'
+    'css/index.css'
 )
 
 @reactive.calc
