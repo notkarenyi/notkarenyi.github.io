@@ -1,3 +1,4 @@
 *.pyc
 rsconnect-python/notkarenyi.github.io.json
 *.pickle
+app/rsconnect-python/app.json
