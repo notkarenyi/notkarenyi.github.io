@@ -73,13 +73,6 @@ def make_graph_data(df):
         "interests"
     )
 
-    # weight by inverse degree such that those with more connections are farther apart
-    nx.set_node_attributes(
-        G, 
-        dict([(node, 1/degree) for node, degree in G.degree]), 
-        "weight"
-    )
-
     # Generate a layout (e.g., Kamada-Kawai layout)
     # pos = nx.kamada_kawai_layout(G)
     # pos = nx.nx_agraph.graphviz_layout(G)
