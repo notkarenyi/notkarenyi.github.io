@@ -58,7 +58,7 @@ def make_graph_data(df):
     edges['target'] = edges['target'].astype('int64')
 
     graph = graph.drop_duplicates('source')
-    G = nx.Graph()
+    G = nx.DiGraph()
     G.add_nodes_from(graph['source'])
     G.add_edges_from([(row['source'],row['target']) for i,row in edges.iterrows()])
 
