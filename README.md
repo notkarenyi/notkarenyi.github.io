@@ -1,3 +1,3 @@
 # karen yi
-personal site and online resume by me ! has been a good learning opportunity:)
+[personal site](notkarenyi.github.io) and online resume by me ! has been a good learning opportunity:)
 
