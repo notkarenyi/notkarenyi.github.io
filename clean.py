@@ -21,7 +21,12 @@ import pickle
 
 sys.path.append(os.path.join(os.path.dirname(__file__), "app"))
 
-from app import make_color_scale
+from utils import make_color_scale
+
+import os
+print(os.getcwd())
+if os.getcwd().endswith('app'):
+    os.chdir('..')
 
 #%% read and clean data
 
