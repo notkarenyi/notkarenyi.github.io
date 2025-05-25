@@ -44,6 +44,7 @@ df['Connection'] = [x.split(', ') if isinstance(x,str) else [] for x in df['Conn
 df = df.explode('Connection')
 df = df.sort_values('ID')
 
+df.to_json('resources/resume.json',orient='records',date_format='iso')
 # print(df.loc[df['StartYear']==2023])
 # print(df.columns)
 
@@ -161,6 +162,7 @@ def make_edge_trace(G):
         edge_y.append(None) # pick up pen
 
     edge_trace = go.Scatter(
+        showlegend=False,
         x=edge_x, 
         y=edge_y,
         line=dict(width=0.5, color='#888'),
@@ -204,6 +206,7 @@ def make_node_trace(G):
         node_y.append(y)
 
     node_trace = go.Scatter(
+        showlegend=False,
         x=node_x, 
         y=node_y,
         mode='markers',
@@ -217,7 +220,7 @@ def make_node_trace(G):
         }
     )
 
-    return node_trace    
+    return node_trace, interest_colors 
 
 #%% store data
 
@@ -226,6 +229,6 @@ gantt.to_excel('app/gantt.xlsx',index=False)
 
 G = make_graph_data(df)
 edge_trace=make_edge_trace(G)
-node_trace=make_node_trace(G)
+node_trace,group_colors=make_node_trace(G)
 pickle.dump(edge_trace, open('app/edge_trace.pickle', 'wb'))
-pickle.dump(node_trace, open('app/node_trace.pickle', 'wb'))
+pickle.dump((node_trace,group_colors), open('app/node_trace.pickle', 'wb'))

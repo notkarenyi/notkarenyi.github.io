@@ -243,7 +243,7 @@ with ui.card():
 
         # load graph object from file
         edge_trace = pickle.load(open('edge_trace.pickle', 'rb'))
-        node_trace = pickle.load(open('node_trace.pickle', 'rb'))
+        node_trace, group_colors = pickle.load(open('node_trace.pickle', 'rb'))
 
         minimum = min([x for x in edge_trace['x'] if x!=None])
         maximum = max([x for x in edge_trace['x'] if x!=None])
@@ -258,18 +258,29 @@ with ui.card():
         fig = go.Figure(
             data=[edge_trace, node_trace],
             layout=go.Layout(
-                showlegend=False,
                 dragmode='pan',
                 hovermode='closest',
                 xaxis=axis,
                 yaxis=axis,
                 height=750,
-                width=750,
+                width=650,
+                showlegend=True,
             ),
         )
 
+        for group, color in group_colors.items():
+            fig.add_trace(go.Scatter(
+                x=[None], y=[None],
+                opacity=1,
+                mode='markers',
+                marker=dict(size=15, color=color),
+                name=group,
+                hoverinfo='skip',
+            ))
+
         fig.update_layout(   
             template='plotly_white',
+            legend=dict(y=1.1, orientation='h',itemwidth=30)
         )
     
         widget = go.FigureWidget(fig) 
