@@ -1,4 +1,10 @@
-import pickle
+# Instructions:
+# 1. Install the VSCode Shiny extension and use the dropdown by the Play button to launch the app locally for debugging.
+# 2. Comment out each card to deploy each app. This is because Shiny expects the app to be in app.py and all required dependencies must be in the same directory.
+# 3. Deploy using `rsconnect deploy shiny app --name notkarenyi --title resume`
+
+#%% imports
+
 import pandas as pd
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
@@ -7,6 +13,14 @@ from shiny.express import input, render, ui
 import plotly.graph_objects as go
 from shiny import reactive
 from shinywidgets import render_plotly
+import pickle
+
+# import os
+# print(os.getcwd())
+# if not os.getcwd().endswith('app'):
+#     os.chdir('app')
+
+#%% helper functions
 
 def make_color_scale(unique_groups):
     """
@@ -37,11 +51,13 @@ def make_color_scale(unique_groups):
 
     return group_colors
 
-#%% UI and server
+config = {
+    'displayModeBar': True,  # Show the mode bar
+    'modeBarButtonsToRemove': ['select2d', 'lasso2d', 'autoscale', 'zoomin', 'zoomout'],  # Remove some modebar options
+    # 'scrollZoom': True,  # Allow scroll zoom
+}
 
-ui.include_css(
-    'css/index.css'
-)
+#%% server
 
 @reactive.calc
 def filter_data():
@@ -71,11 +87,101 @@ hover_reactive = reactive.value("Click or hover over data to view details. Doubl
 def on_hover(_, points, __): 
     hover_reactive.set(points.__dict__)
 
-config = {
-    'displayModeBar': True,  # Show the mode bar
-    'modeBarButtonsToRemove': ['select2d', 'lasso2d', 'autoscale', 'zoomin', 'zoomout'],  # Remove some modebar options
-    'scrollZoom': True,  # Allow scroll zoom
-}
+def create_layout(gantt_data):
+    
+    return go.Layout(
+        xaxis=dict(
+            showgrid=True,
+            showline=True,
+            range=[
+                min(
+                    gantt_data.loc[gantt_data['Start']>datetime(1970,1,1),'Start']
+                ), 
+                datetime.today() + relativedelta(years=1)
+            ],
+            type='date',
+            dtick='M12',
+            ticklabelstep=1,
+            minallowed=min(
+                gantt_data.loc[gantt_data['Start']>datetime(1970,1,1),'Start']
+            ),
+            maxallowed=datetime.today() + relativedelta(years=5)
+        ),
+        yaxis=dict(
+            showgrid=False,
+            showticklabels=False,
+            zeroline=False,
+            range=[-.5,len(gantt_data)+.5],
+            minallowed=-1,
+            maxallowed=len(gantt_data)+1
+        ),
+        hovermode='y',
+        dragmode='pan',
+        height=min(len(gantt_data)*25+100,750),  # Adjust height based on number of rows
+    )
+
+def create_traces(xs, ys, groups, group_colors):
+    # group the gantt-compatible dataframe
+    gantt_df = pd.DataFrame({
+        'x':xs,
+        'y':ys,
+        'group':groups
+    })
+
+    traces = []
+    # click data events only register the top layer :/
+    traces.append(go.Scatter(
+        x=xs,
+        y=ys,
+        mode='lines',
+        hoverinfo='none',
+        line={
+            'width':15
+        },
+        opacity=0,
+        showlegend=False
+    )) 
+
+    # Iterate over each group in the dataset
+    for group in gantt_df.groupby('group'):
+        traces.append(go.Scatter(
+            name=group[0],
+            x=group[1]['x'].tolist(),
+            y=group[1]['y'].tolist(),
+            mode='lines',
+            hoverinfo='none',
+            line=dict(
+                color=group_colors[group[1]['group'].unique()[0]],  # Assign color based on Type
+                width=15
+            ),
+        ))
+
+    return traces
+
+def make_groups(gantt_data):
+    xs = []
+    ys = []
+    groups = []
+    # insight: can copy the syntax for graphing edges because this is also a discontinuous line chart
+    for _, row in gantt_data.iterrows():
+        xs.append(row['Start'])
+        xs.append(row['End'])
+        xs.append(None) # pick up pen
+        ys.append(row['Index'])
+        ys.append(row['Index'])
+        ys.append(row['Index']) # out of range float values are not JSON compliant
+        # Assign color based on Type
+        groups.append(row[input.group_by()])
+        groups.append(row[input.group_by()])
+        groups.append(row[input.group_by()]) # we have to keep this as the id column when picking up pen
+
+    return xs, ys, groups
+
+#%% UI
+
+ui.include_css(
+    'css/index.css'
+)
 
 with ui.card():
 
@@ -97,107 +203,30 @@ with ui.card():
         )
 
     with ui.layout_columns(gap="1rem"):
-
+                
         # Create Gantt chart
         # The native function does not work with Shiny for some reason
         @render_plotly  
         def gantt_chart():  
                     
-            gantt = filter_data()
+            gantt_data = filter_data()
 
-            xs = []
-            ys = []
-            groups = []
-            # insight: can copy the syntax for graphing edges because this is also a discontinuous line chart
-            for _, row in gantt.iterrows():
-                xs.append(row['Start'])
-                xs.append(row['End'])
-                xs.append(None) # pick up pen
-                ys.append(row['Index'])
-                ys.append(row['Index'])
-                ys.append(row['Index']) # out of range float values are not JSON compliant
-                # Assign color based on Type
-                groups.append(row[input.group_by()])
-                groups.append(row[input.group_by()])
-                groups.append(row[input.group_by()]) # we have to keep this as the id column when picking up pen
+            xs, ys, groups = make_groups(gantt_data)
                 
             #%% hover data layer 
-            # click data events only register the top layer :/
-
-            traces = []
-            traces.append(go.Scatter(
-                x=xs,
-                y=ys,
-                mode='lines',
-                hoverinfo='none',
-                line={
-                    'width':15
-                },
-                opacity=0,
-                showlegend=False
-            )) 
-                
-            #%% color-coded can only be created with individual traces 
+            # color-coded can only be created with individual traces 
 
             # Create a mapping of groups to colors
-            unique_groups = gantt[input.group_by()].unique()
-            group_colors = make_color_scale(unique_groups)
-
-            # group the gantt-compatible dataframe
-            gantt_df = pd.DataFrame({
-                'x':xs,
-                'y':ys,
-                'group':groups
-            })
-
-            # Iterate over each group in the dataset
-            for group in gantt_df.groupby('group'):
-                traces.append(go.Scatter(
-                    name=group[0],
-                    x=group[1]['x'].tolist(),
-                    y=group[1]['y'].tolist(),
-                    mode='lines',
-                    hoverinfo='none',
-                    line=dict(
-                        color=group_colors[group[1]['group'].unique()[0]],  # Assign color based on Type
-                        width=15
-                    ),
-                ))
-
-            layout = go.Layout(
-                xaxis=dict(
-                    showgrid=True,
-                    showline=True,
-                    range=[
-                        min(
-                            gantt.loc[gantt['Start']>datetime(1970,1,1),'Start']
-                        ), 
-                        datetime.today() + relativedelta(years=1)
-                    ],
-                    type='date',
-                    dtick='M12',
-                    ticklabelstep=1,
-                    minallowed=min(
-                        gantt.loc[gantt['Start']>datetime(1970,1,1),'Start']
-                    ),
-                    maxallowed=datetime.today() + relativedelta(years=5)
-                ),
-                yaxis=dict(
-                    showgrid=False,
-                    showticklabels=False,
-                    zeroline=False,
-                    range=[-.5,len(gantt)+.5],
-                    minallowed=-1,
-                    maxallowed=len(gantt)+1
-                ),
-                hovermode='y',
-                dragmode='pan',
-                height=min(len(gantt)*25+100,750),  # Adjust height based on number of rows
-            )
-
+            unique_groups = gantt_data[input.group_by()].unique()
+                    
             fig = go.Figure(
-                data=traces, 
-                layout=layout,
+                data=create_traces(
+                    xs=xs,
+                    ys=ys,
+                    groups=groups,
+                    group_colors=make_color_scale(unique_groups)
+                ), 
+                layout=create_layout(gantt_data),
             )
 
             fig.update_layout(   
@@ -205,7 +234,7 @@ with ui.card():
                 legend=dict(
                     orientation="h",
                     yanchor="top",
-                    y=0-1/(len(gantt)**1.1)*3.5,
+                    y=0-1/(len(gantt_data)**1.1)*3.5,
                     xanchor="left",
                     x=-.04
                 )
@@ -220,22 +249,23 @@ with ui.card():
             widget._config = config
 
             return widget
-            
+
         @render.express
         def hover_info():
             point = hover_reactive.get()
 
             if not isinstance(point,str):
-                gantt = filter_data()
+                gantt_data = filter_data()
                 try:
-                    text = gantt.loc[gantt['Index']==point['_ys'][0],'Text'].values[0]
+                    text = gantt_data.loc[gantt_data['Index']==point['_ys'][0],'Text'].values[0]
                 except Exception as e:
-                    text = gantt['Text'].head(1).values[0]
+                    text = gantt_data['Text'].head(1).values[0]
 
                 # express does not allow returns but displays each line dynamically 
                 ui.HTML(text)
             else:
                 point
+
 
 with ui.card():
     ui.h2("Experience")
