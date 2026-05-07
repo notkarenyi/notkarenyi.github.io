@@ -1,271 +1,483 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-    <!--sources: weebly.com, css-tricks.com, w3schools.com, google fonts
+  <!--sources: weebly.com, css-tricks.com, w3schools.com, google fonts
     especially https://css-tricks.com/centering-css-complete-guide/ for centering-->
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-        <!--Fonts-->
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
+    />
+    <!--Fonts-->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
-        <link rel="icon" type="image/x-icon" href="resources/icon.ico">  
+    <link rel="icon" type="image/x-icon" href="resources/icon.ico" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
 
-        <link href="app/css/index.css" type="text/css" rel="stylesheet">
-        <title>karen yi</title>
-    </head>
-    <body>
-        <div id="splash">
+    <link href="app/css/index.css" type="text/css" rel="stylesheet" />
+    <title>karen yi</title>
+  </head>
+  <body>
+    <div id="splash"></div>
+    <div id="d3"></div>
+    <header>
+      <h1 id="title"><a href="/">Karen Yi</a></h1>
+      <nav>
+        <a href="#introduction">Intro</a>
+        <a href="#experience">Experience</a>
+        <a href="#projects">Projects!</a>
+        <a href="#interests">Interests</a>
+        <a href="#contact">Contact</a>
+        <a href="/中文.html">中文</a>
+      </nav>
+      <a class="mobile-only" href="/中文.html"> 中文 </a>
+    </header>
+    <div class="wrapper-container">
+      <main>
+        <section class="spaced narrow" id="introduction">
+          <h2>Introduction</h2>
+          <p>
+            I work within
+            <a href="https://www.chriskuang.com/civictech" target="_blank"
+              >civic technology</a
+            >, using approaches informed by a
+            <a href="#experience">background</a> in psychology, graphic design,
+            and education. My work tends towards the intersections between
+            fields, reflecting the boundaries I've balanced in
+            <a href="#interests">life</a>: living in California and Colorado,
+            growing up Chinese and American, working in STEM and humanities. I
+            love big ideas&mdash;for example:
+          </p>
+          <ul>
+            <li>
+              By studying how memories are organized in the human brain, we can
+              inform how we organize information on the Internet, and vice
+              versa.
+            </li>
+            <li>
+              By using what we know about attention and vision, we can design
+              more intuitive and accessible user interfaces.
+            </li>
+            <li>
+              By distilling research from thousands of sources, we can develop
+              actionable policies for education workforce development, welfare
+              interventions, and more.
+            </li>
+          </ul>
+          <p>
+            Underneath all this, I am always working towards community. My
+            experiences in work, research, and life have recently begun to
+            converge on one guiding principle: cooperation. Often research and
+            activism is duplicative, ignores history and institutional
+            knowledge, mistakenly believes that new is always better, and
+            prevents successful collaboration by siloing and splintering. These
+            concepts have been variously termed "participatory action research",
+            "design justice", "human-centered design", and "collective impact"
+            as they apply to various different fields. What is so-called
+            progress without the people you're working to benefit? Can we bring
+            community into knowledge management?
+          </p>
+          <p>
+            Please <a href="#contact">reach out</a> if you're interested in any
+            of the above topics. I'm always looking for mentors, mentees, and
+            like-minded friends.
+          </p>
+          <a href="https://medium.com/@notkarenyi/list/projects-608984d61008"
+            ><button>view my blog posts on Medium</button></a
+          >
+        </section>
+        <section class="spaced color" id="experience" style="height: 2000px">
+          <div>
+            <iframe
+              style="height: 1000px; width: 98vw"
+              frameborder="no"
+              src="https://notkarenyi.shinyapps.io/experience/"
+            >
+            </iframe>
+          </div>
+          <div>
+            <iframe
+              style="height: 1000px; width: 98vw"
+              frameborder="no"
+              src="https://notkarenyi.shinyapps.io/resume/"
+            >
+            </iframe>
+          </div>
+        </section>
+        <section class="spaced narrow" id="projects">
+          <h2>Projects</h2>
+          <p>
+            The following are some of my favorite projects (other than this
+            website), other than those bound by confidentiality agreements.
+            Click on any box to check out the finished product.
+          </p>
+          <p>
+            With the exception of starred projects, I was the sole
+            designer/developer.
+          </p>
+          <div class="deck">
+            <div class="gallery-card">
+              <a
+                href="https://chicagomaroon.github.io/data-visualizations/2026/endowment-breakdown/"
+              >
+                <img
+                  src="resources/endowment.png"
+                  alt="Interactive analysis of the University of Chicago's endowment."
+                  style="object-fit: contain"
+                />
+                <h4>uchicago endowment</h4>
+              </a>
+            </div>
+            <div class="gallery-card">
+              <a
+                href="https://chicagomaroon.github.io/data-visualizations/2025/divestment-history/"
+              >
+                <img
+                  src="resources/divestment.png"
+                  alt="Interactive timeline of different divestment-related movements from 1965-2025."
+                  style="object-fit: contain"
+                />
+                <h4>divestment history at uchicago</h4>
+              </a>
+            </div>
+            <div class="gallery-card">
+              <a
+                href="https://www.figma.com/proto/aBVyV9J0YBKbpHWmkz7kBr/UIUX-(Copy)?node-id=2225-3808&p=f&t=kbZ46jvA3i1NeUUJ-0&scaling=min-zoom&content-scaling=fixed&page-id=2225%3A3779&starting-point-node-id=2225%3A3785"
+              >
+                <img
+                  src="resources/townhall.png"
+                  alt="App prototype with the message 'How do I get involved with local politics?'"
+                  style="object-fit: contain"
+                />
+                <h4>civic tech app prototype</h4>
+              </a>
+            </div>
+            <div class="gallery-card">
+              <a
+                href="https://www.figma.com/proto/aBVyV9J0YBKbpHWmkz7kBr/UIUX-(Copy)?node-id=2052-3098&p=f&t=kbZ46jvA3i1NeUUJ-0&scaling=min-zoom&content-scaling=fixed&page-id=2048%3A3098&starting-point-node-id=2052%3A3098"
+              >
+                <img
+                  src="resources/calendar.png"
+                  alt="Retro-stylized Google calendar redesign"
+                  style="object-fit: contain"
+                />
+                <h4>gcal design study</h4>
+              </a>
+            </div>
+            <div class="gallery-card">
+              <a href="https://notkarenyi.shinyapps.io/chinese/">
+                <img
+                  src="resources/chinese.png"
+                  alt="Network graph of Chinese vocabulary words"
+                  style="object-fit: contain"
+                />
+                <h4>visualizing vocab</h4>
+              </a>
+            </div>
+            <div class="gallery-card">
+              <a
+                href="https://medium.com/@notkarenyi/how-to-ride-the-bus-1befe266e2ba"
+              >
+                <img
+                  src="resources/bus.png"
+                  alt="Ink-style digital drawing of a bus"
+                  style="object-fit: contain"
+                />
+                <h4>how to ride the bus</h4>
+              </a>
+            </div>
+            <div class="gallery-card">
+              <a href="resources/DISTRIBUTABLE_REDUCED_CCK.pdf">
+                <img
+                  src="resources/toolkit.png"
+                  alt="Strategies toolkit for peer learning facilitation"
+                  style="object-fit: contain"
+                />
+                <h4>capturing community knowledge (report)</h4>
+              </a>
+            </div>
+            <div class="gallery-card">
+              <a
+                href="https://docs.google.com/document/d/1yIdo6g4dOuqRbrweA8-XzwZRZbPfvMR1LtbvVq889G0/edit?usp=sharing"
+              >
+                <img
+                  src="resources/urfp.png"
+                  alt="Underrepresented Students in Computer Science graph"
+                  style="object-fit: contain"
+                />
+                <h4>representation in CS (paper)</h4>
+              </a>
+            </div>
+            <div class="gallery-card">
+              <a href="resources/uccs.jpg">
+                <img
+                  src="resources/uccs-graph.png"
+                  alt="High-impact tutoring research poster"
+                  style="object-fit: contain"
+                />
+                <h4>high-impact tutoring</h4>
+              </a>
+            </div>
+            <div class="gallery-card">
+              <a href="https://playnet.uclaacm.com/">
+                <img
+                  src="resources/playnet-logo.svg"
+                  alt="Graphic of orange and blue Saturn-like planet"
+                />
+                <h4>learning labs*</h4>
+              </a>
+            </div>
+            <div class="gallery-card">
+              <a
+                href="https://github.com/notkarenyi/pic16a/blob/main/FinalProjectBabey.ipynb"
+              >
+                <img
+                  src="resources/penguins.png"
+                  alt="Visualization of decision regions for a machine-learning model"
+                  style="object-fit: contain"
+                />
+                <h4>machine learning*</h4>
+              </a>
+            </div>
+            <div class="gallery-card">
+              <a
+                href="https://github.com/uclaacm/learning-lab-crash-course-su20/tree/main/13-accessibility"
+              >
+                <img src="resources/acm-logo.png" alt="UCLA ACM club logo" />
+                <h4>accessibility workshops</h4>
+              </a>
+            </div>
+            <div class="gallery-card">
+              <a
+                href="https://github.com/uclaacm/tla-dev-intern-training-w21/blob/main/week-3p-designing-with-figma/Figma%20Day%201.md"
+              >
+                <img
+                  src="resources/figma-design.png"
+                  alt="Mockup of desktop and mobile versions of a website called Learning Labs"
+                />
+                <h4>figma workshops</h4>
+              </a>
+            </div>
+            <div class="gallery-card">
+              <a
+                href="https://www.airtable.com/universe/expXvAEFqQteV98Em/meal-planning-and-grocery-list"
+              >
+                <img
+                  src="resources/babka.jpg"
+                  alt="Loaf of sliced homemade babka bread on black background"
+                />
+                <h4>meal planning airtable</h4>
+              </a>
+            </div>
+            <div class="gallery-card">
+              <a href="https://scratch.mit.edu/projects/78887632/">
+                <img
+                  src="resources/scratch.png"
+                  alt="Orange-bordered circle with text saying The Name Game"
+                />
+                <h4>middle school scratch</h4>
+              </a>
+            </div>
+            <div class="gallery-card">
+              <a href="http://digucla.weebly.com/">
+                <img
+                  src="resources/digtable.jpg"
+                  alt="Light-green circle with a plant growing out of outstretched hands (Dig gardening club logo)"
+                />
+                <h4>dig website</h4>
+              </a>
+            </div>
+            <div class="gallery-card">
+              <a href="https://youthroots.org/">
+                <img
+                  src="resources/youthroots.png"
+                  alt="Website mockup for Boulder County page of Youthroots nonprofit site"
+                />
+                <h4>youthroots website</h4>
+              </a>
+            </div>
+            <div class="gallery-card">
+              <a href="/photography.html">
+                <img
+                  src="resources/sunflower-meadow.jpg"
+                  alt="Meadow with sunflowers"
+                />
+                <h4>photo portfolio</h4>
+              </a>
+            </div>
+            <div class="gallery-card">
+              <a href="/graphic-design.html">
+                <img
+                  src="resources/illustrated-converse.jpg"
+                  alt="White Converse shoe with black illustrations"
+                />
+                <h4>design portfolio</h4>
+              </a>
+            </div>
+          </div>
+          <span style="font-style: italic">
+            *On the Learning Lab project, I was the graphic designer who created
+            all components, style guides, etc.
+            <br />
+            *On the machine learning class project, I was one of two group
+            members responsible for planning and execution.
+          </span>
+        </section>
+        <section class="spaced narrow" id="interests">
+          <h2>Life outside of work</h2>
+          <h3>music</h3>
+          <p>
+            Genres I've been into lately: Ann Arbor indie, habibi funk,
+            Afrobeats, Chinese-American jazz, Taiwanese and Hong Kong indie,
+            Latin indie folk, Japanese city pop, women of classical, piano
+            trios, alternative R&B. Check out the songs I'm currently listening
+            to below, updated every 1-2 weeks.
+          </p>
+          <!--Spotify widget (available to all users)-->
+          <iframe
+            style="border-radius: 12px"
+            src="https://open.spotify.com/embed/playlist/2fKR1YQ46L8AxGvwuMqK8e?utm_source=generator"
+            width="100%"
+            height="380"
+            frameborder="0"
+            allowfullscreen=""
+            allow="
+              autoplay;
+              clipboard-write;
+              encrypted-media;
+              fullscreen;
+              picture-in-picture;
+            "
+          ></iframe>
+        </section>
+        <section class="spaced color">
+          <!--Goodreads widget (available to all users)-->
+          <noscript>
+            Share
+            <a rel="nofollow" href="https://www.goodreads.com/">book reviews</a>
+            and ratings with Karen on Goodreads.
+          </noscript>
+          <div class="wide">
+            <script
+              src="https://www.goodreads.com/review/custom_widget/27745330.Recently%20read?cover_position=left&cover_size=medium&num_books=5&order=d&shelf=read&show_author=1&show_cover=1&show_rating=0&show_review=1&show_tags=0&show_title=1&sort=date_read&widget_bg_color=FFFFFF&widget_bg_transparent=&widget_border_width=none&widget_id=1657826294&widget_text_color=000000&widget_title_size=medium&widget_width=full"
+              type="text/javascript"
+              charset="utf-8"
+            ></script>
+          </div>
+        </section>
+        <section class="spaced narrow" id="contact">
+          <h2>Speak to the manager of this site</h2>
+          <!-- <img src="resources/me.jpg" alt=""/> -->
+          <p>
+            Whether you have a project you think I'd be interested in joining,
+            have a question or comment about this site, or just want to meet
+            someone who likes the same things you do, you can reach me anytime
+            at
+            <a href="mailto:notkarenyi@gmail.com?subject=I saw your website!"
+              >notkarenyi@gmail.com</a
+            >.
+          </p>
+          <p>
+            So...am I Karen Yi or not?? Actually,
+            <a href="https://www.wnyc.org/people/karen-yi/">WNYC Karen Yi</a>
+            got there first. Sadly, we are not related.
+          </p>
+          <a href="resources/Yi-Karen-Resume.pdf" download
+            ><button>download my resume</button></a
+          >
+          <!-- <iframe class="airtable-embed" src="https://airtable.com/embed/shrJtM6OLRyjMkyLo" frameborder="0" onmousewheel="" width="100%" height="533"></iframe> -->
+        </section>
+      </main>
+      <footer>
+        <div>
+          <h4>Credits</h4>
+          <p>
+            everything about this site except the following are made by karen
+            yi:
+          </p>
+          <ul>
+            <li>goodreads and spotify widgets</li>
+            <li>zcool qingke huangyou font by zheng qingke</li>
+            <li>
+              resume graph was developed using a combination of 30 hours of
+              documentation reference + github copilot (uses cited in source
+              code) :(
+            </li>
+          </ul>
         </div>
-        <header>
-            <h1 id="title"><a href="/">Karen Yi</a></h1>
-            <nav>
-                <a href="#introduction">Intro</a>
-                <a href="#experience">Experience</a>
-                <a href="#projects">Projects!</a>
-                <a href="#interests">Interests</a>
-                <a href="#contact">Contact</a>
-                <a href="/中文.html">中文</a>
-            </nav>
-            <a class="mobile-only" href="/中文.html">
-                中文
+        <div>
+          <h4>Want to make a site like this?</h4>
+          <a
+            href="https://www.khanacademy.org/computing/computer-programming/html-css"
+            >Khan Academy HTML/CSS course</a
+          >
+          <a href="https://www.w3schools.com/where_to_start.asp"
+            >w3schools web development courses</a
+          >
+          <a
+            href="http://khanacademy.org/computing/computer-programming/html-css/web-development-tools/a/hosting-your-website-on-github"
+            >Hosting your own site on GitHub</a
+          >
+          <a href="https://github.com/uclaacm/centralized-intern-training"
+            >UCLA ACM intro to web development course</a
+          >
+          <a href="https://visualstudio.microsoft.com/"
+            >Download Visual Studio code editor</a
+          >
+          <a href="https://css-tricks.com/snippets/css/a-guide-to-flexbox/"
+            >Using Flexbox to structure your site</a
+          >
+          <a href="http://w3schools.com/css/css_rwd_mediaqueries.asp"
+            >Responsive design</a
+          >
+          <a
+            href="https://docs.google.com/document/d/1Sf6h1fUTfnzbRuSIv58TLjSmtqg3WqF3aRcPaxLb0_s/edit?usp=sharing"
+            >Full list of resources</a
+          >
+          <a href="https://github.com/notkarenyi/notkarenyi.github.io"
+            >View this project on GitHub</a
+          >
+        </div>
+        <div>
+          <h4>Social</h4>
+          <div id="social">
+            <a href="https://www.instagram.com/notkarenyi/" target="_blank">
+              <img
+                class="social-media"
+                src="resources/instagram-icon.png"
+                alt="Instagram"
+              />
             </a>
-        </header>
-        <div class="wrapper-container">
-            <main>
-                <section class="spaced narrow" id="introduction">
-                    <h2>Introduction</h2>
-                    <p>
-                        I work within <a href="https://www.chriskuang.com/civictech" target="_blank">civic technology</a>, using approaches informed by a <a href="#experience">background</a> in psychology, graphic design, and education. My work tends towards the intersections between fields, reflecting the boundaries I've balanced in <a href="#interests">life</a>: living in California and Colorado, growing up Chinese and American, working in STEM and humanities. I love big ideas&mdash;for example:
-                    </p>
-                    <ul>
-                        <li>By studying how memories are organized in the human brain, we can inform how we organize information on the Internet, and vice versa.</li>
-                        <li>By using what we know about attention and vision, we can design more intuitive and accessible user interfaces.</li>
-                        <li>By distilling research from thousands of sources, we can develop actionable policies for education workforce development, welfare interventions, and more.</li>
-                    </ul>
-                    <p>
-                        Underneath all this, I am always working towards community. My experiences in work, research, and life have recently begun to converge on one guiding principle: cooperation. Often research and activism is duplicative, ignores history and institutional knowledge, mistakenly believes that new is always better, and prevents successful collaboration by siloing and splintering. These concepts have been variously termed "participatory action research", "design justice", "human-centered design", and "collective impact" as they apply to various different fields. What is so-called progress without the people you're working to benefit? Can we bring community into knowledge management?
-                    </p>
-                    <p>
-                        Currently pursuing a master's in computer science and public policy at the University of Chicago.
-                    </p>
-                    <p>
-                        Please <a href="#contact">reach out</a> if you're interested in any of the above topics. I'm always looking for mentors, mentees, and like-minded friends.
-                    </p>
-                    <a href="https://medium.com/@notkarenyi/list/projects-608984d61008"><button>view my blog posts on Medium</button></a>
-                </section>
-                <section class="spaced color" id="experience" style="height:2000px">
-                    <div>
-                        <iframe style="height: 1000px; width: 98vw;" frameborder="no" src="https://notkarenyi.shinyapps.io/experience/"> </iframe>
-                    </div>
-                    <div>
-                        <iframe style="height: 1000px; width: 98vw;" frameborder="no" src="https://notkarenyi.shinyapps.io/resume/"> </iframe>
-                    </div>
-                </section>
-                <section class="spaced narrow" id="projects">
-                    <h2>Projects</h2>
-                    <p>
-                        The following are some of my favorite projects (other than this website), other than those bound by confidentiality agreements. Click on any box to check out the finished product.
-                    </p>
-                    <p>
-                        With the exception of starred projects, I was the sole designer/developer.
-                    </p>
-                    <div class="deck">
-                        <div class="gallery-card">
-                            <a href="https://chicagomaroon.github.io/data-visualizations/2025/divestment-history/">
-                                <img src="resources/divestment.png" alt="Interactive timeline of different divestment-related movements from 1965-2025." style="object-fit:contain">
-                                <h4>divestment history at uchicago</h4>
-                            </a>
-                        </div>
-                        <div class="gallery-card">
-                            <a href="https://www.figma.com/proto/aBVyV9J0YBKbpHWmkz7kBr/UIUX-(Copy)?node-id=2225-3808&p=f&t=kbZ46jvA3i1NeUUJ-0&scaling=min-zoom&content-scaling=fixed&page-id=2225%3A3779&starting-point-node-id=2225%3A3785">
-                                <img src="resources/townhall.png" alt="App prototype with the message 'How do I get involved with local politics?'" style="object-fit:contain">
-                                <h4>civic tech app prototype</h4>
-                            </a>
-                        </div>
-                        <div class="gallery-card">
-                            <a href="https://www.figma.com/proto/aBVyV9J0YBKbpHWmkz7kBr/UIUX-(Copy)?node-id=2052-3098&p=f&t=kbZ46jvA3i1NeUUJ-0&scaling=min-zoom&content-scaling=fixed&page-id=2048%3A3098&starting-point-node-id=2052%3A3098">
-                                <img src="resources/calendar.png" alt="Retro-stylized Google calendar redesign" style="object-fit:contain">
-                                <h4>gcal design study</h4>
-                            </a>
-                        </div>
-                        <div class="gallery-card">
-                            <a href="https://notkarenyi.shinyapps.io/chinese/">
-                                <img src="resources/chinese.png" alt="Network graph of Chinese vocabulary words" style="object-fit:contain">
-                                <h4>visualizing vocab</h4>
-                            </a>
-                        </div>
-                        <div class="gallery-card">
-                            <a href="https://medium.com/@notkarenyi/how-to-ride-the-bus-1befe266e2ba">
-                                <img src="resources/bus.png" alt="Ink-style digital drawing of a bus" style="object-fit:contain">
-                                <h4>how to ride the bus</h4>
-                            </a>
-                        </div>
-                        <div class="gallery-card">
-                            <a href="resources/DISTRIBUTABLE_REDUCED_CCK.pdf">
-                                <img src="resources/toolkit.png" alt="Strategies toolkit for peer learning facilitation" style="object-fit:contain">
-                                <h4>capturing community knowledge (report)</h4>
-                            </a>
-                        </div>
-                        <div class="gallery-card">
-                            <a href="https://docs.google.com/document/d/1yIdo6g4dOuqRbrweA8-XzwZRZbPfvMR1LtbvVq889G0/edit?usp=sharing">
-                                <img src="resources/urfp.png" alt="Underrepresented Students in Computer Science graph" style="object-fit:contain">
-                                <h4>representation in CS (paper)</h4>
-                            </a>
-                        </div>
-                        <div class="gallery-card">
-                            <a href="resources/uccs.jpg">
-                                <img src="resources/uccs-graph.png" alt="High-impact tutoring research poster" style="object-fit:contain">
-                                <h4>high-impact tutoring</h4>
-                            </a>
-                        </div>
-                        <div class="gallery-card">
-                            <a href="https://playnet.uclaacm.com/">
-                                <img src="resources/playnet-logo.svg" alt="Graphic of orange and blue Saturn-like planet">
-                                <h4>learning labs*</h4>
-                            </a>
-                        </div>
-                        <div class="gallery-card">
-                            <a href="https://github.com/notkarenyi/pic16a/blob/main/FinalProjectBabey.ipynb">
-                                <img src="resources/penguins.png" alt="Visualization of decision regions for a machine-learning model" style="object-fit:contain">
-                                <h4>machine learning*</h4>
-                            </a>
-                        </div>
-                        <div class="gallery-card">
-                            <a href="https://github.com/uclaacm/learning-lab-crash-course-su20/tree/main/13-accessibility">
-                                <img src="resources/acm-logo.png" alt="UCLA ACM club logo">
-                                <h4>accessibility workshops</h4>
-                            </a>
-                        </div>
-                        <div class="gallery-card">
-                            <a href="https://github.com/uclaacm/tla-dev-intern-training-w21/blob/main/week-3p-designing-with-figma/Figma%20Day%201.md">
-                                <img src="resources/figma-design.png" alt="Mockup of desktop and mobile versions of a website called Learning Labs">
-                                <h4>figma workshops</h4>
-                            </a>
-                        </div>
-                        <div class="gallery-card">
-                            <a href="https://www.airtable.com/universe/expXvAEFqQteV98Em/meal-planning-and-grocery-list">
-                                <img src="resources/babka.jpg" alt="Loaf of sliced homemade babka bread on black background">
-                                <h4>meal planning airtable</h4>
-                            </a>
-                        </div>
-                        <div class="gallery-card">
-                            <a href="https://scratch.mit.edu/projects/78887632/">
-                                <img src="resources/scratch.png" alt="Orange-bordered circle with text saying The Name Game">
-                                <h4>middle school scratch</h4>
-                            </a>
-                        </div>
-                        <div class="gallery-card">
-                            <a href="http://digucla.weebly.com/">
-                                <img src="resources/digtable.jpg" alt="Light-green circle with a plant growing out of outstretched hands (Dig gardening club logo)">
-                                <h4>dig website</h4>
-                            </a>
-                        </div>
-                        <div class="gallery-card">
-                            <a href="https://youthroots.org/">
-                                <img src="resources/youthroots.png" alt="Website mockup for Boulder County page of Youthroots nonprofit site">
-                                <h4>youthroots website</h4>
-                            </a>
-                        </div>
-                        <div class="gallery-card">
-                            <a href="/photography.html">
-                                <img src="resources/sunflower-meadow.jpg" alt="Meadow with sunflowers">
-                                <h4>photo portfolio</h4>
-                            </a>
-                        </div>
-                        <div class="gallery-card">
-                            <a href="/graphic-design.html">
-                                <img src="resources/illustrated-converse.jpg" alt="White Converse shoe with black illustrations">
-                                <h4>design portfolio</h4>
-                            </a>
-                        </div>                        
-                    </div>
-                    <span style="font-style: italic;">
-                        *On the Learning Lab project, I was the graphic designer who created all components, style guides, etc.
-                        <br />
-                        *On the machine learning class project, I was one of two group members responsible for planning and execution.
-                    </span>
-                </section>
-                <section class="spaced narrow" id="interests">
-                    <h2>Life outside of work</h2>    
-                    <h3>music</h3>
-                    <p>
-                        Genres I've been into lately: Ann Arbor indie, habibi funk, Afrobeats, Chinese-American jazz, Taiwanese and Hong Kong indie, Latin indie folk, Japanese city pop, women of classical, piano trios, alternative R&B. Check out the songs I'm currently listening to below, updated every 1-2 weeks.
-                    </p>
-                    <!--Spotify widget (available to all users)-->             
-                    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/2fKR1YQ46L8AxGvwuMqK8e?utm_source=generator" width="100%" height="380" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
-                </section>
-                <section class="spaced color">
-                    <!--Goodreads widget (available to all users)-->             
-                    <noscript>
-                        Share <a rel="nofollow" href="https://www.goodreads.com/">book reviews</a> and ratings with Karen on Goodreads.
-                    </noscript>
-                    <div class="wide">
-                        <script src="https://www.goodreads.com/review/custom_widget/27745330.Recently%20read?cover_position=left&cover_size=medium&num_books=5&order=d&shelf=read&show_author=1&show_cover=1&show_rating=0&show_review=1&show_tags=0&show_title=1&sort=date_read&widget_bg_color=FFFFFF&widget_bg_transparent=&widget_border_width=none&widget_id=1657826294&widget_text_color=000000&widget_title_size=medium&widget_width=full" type="text/javascript" charset="utf-8"></script>
-                    </div>
-                </section>
-                <section class="spaced narrow" id="contact">
-                    <h2>Speak to the manager of this site</h2>
-                    <!-- <img src="resources/me.jpg" alt=""/> -->
-                    <p>
-                        Whether you have a project you think I'd be interested in joining, have a question or comment about this site, or just want to meet someone who likes the same things you do, you can reach me anytime at <a href="mailto:notkarenyi@gmail.com?subject=I saw your website!">notkarenyi@gmail.com</a>.
-                    </p>
-                    <p>
-                        So...am I Karen Yi or not?? Actually, <a href="https://www.wnyc.org/people/karen-yi/">WNYC Karen Yi</a> got there first. Sadly, we are not related.
-                    </p>
-                    <a href="resources/Yi-Karen-Resume.pdf" download><button>download my resume</button></a>
-                    <!-- <iframe class="airtable-embed" src="https://airtable.com/embed/shrJtM6OLRyjMkyLo" frameborder="0" onmousewheel="" width="100%" height="533"></iframe> -->
-                </section>
-            </main>
-            <footer>
-                <div>        
-                    <h4>Credits</h4>            
-                    <p>
-                        everything about this site except the following are made by karen yi:
-                    </p>     
-                    <ul>
-                        <li>
-                            goodreads and spotify widgets
-                        </li>  
-                        <li>
-                            zcool qingke huangyou font by zheng qingke
-                        </li>
-                        <li>
-                            resume graph was developed using a combination of 30 hours of documentation reference + github copilot (uses cited in source code) :(
-                        </li>
-                    </ul>      
-                       
-                </div>
-                <div>
-                    <h4>Want to make a site like this?</h4>
-                    <a href="https://www.khanacademy.org/computing/computer-programming/html-css">Khan Academy HTML/CSS course</a>
-                    <a href="https://www.w3schools.com/where_to_start.asp">w3schools web development courses</a>
-                    <a href="http://khanacademy.org/computing/computer-programming/html-css/web-development-tools/a/hosting-your-website-on-github">Hosting your own site on GitHub</a>
-                    <a href="https://github.com/uclaacm/centralized-intern-training">UCLA ACM intro to web development course</a>
-                    <a href="https://visualstudio.microsoft.com/">Download Visual Studio code editor</a>
-                    <a href="https://css-tricks.com/snippets/css/a-guide-to-flexbox/">Using Flexbox to structure your site</a>
-                    <a href="http://w3schools.com/css/css_rwd_mediaqueries.asp">Responsive design</a>
-                    <a href="https://docs.google.com/document/d/1Sf6h1fUTfnzbRuSIv58TLjSmtqg3WqF3aRcPaxLb0_s/edit?usp=sharing">Full list of resources</a>
-                    <a href="https://github.com/notkarenyi/notkarenyi.github.io">View this project on GitHub</a>
-                </div>
-                <div>
-                    <h4>Social</h4>
-                    <div id="social">
-                        <a href="https://www.instagram.com/notkarenyi/" target="_blank">
-                            <img class="social-media" src="resources/instagram-icon.png" alt="Instagram">
-                        </a>
-                        <a href="https://github.com/notkarenyi" target="_blank">
-                            <img class="social-media" src="resources/github-icon.png" alt="Github">
-                        </a>
-                        <a href="https://linkedin.com/in/notkarenyi" target="_blank">
-                            <img class="social-media" src="resources/linkedin-icon.png" alt="Linkedin">
-                        </a>
-                        <a href="mailto:notkarenyi@gmail.com?subject=I saw your website!" target="_blank">
-                            <img class="social-media" src="resources/mail-icon.png" alt="Email">
-                        </a>
-                    </div>
-                </div>
-            </footer>
+            <a href="https://github.com/notkarenyi" target="_blank">
+              <img
+                class="social-media"
+                src="resources/github-icon.png"
+                alt="Github"
+              />
+            </a>
+            <a href="https://linkedin.com/in/notkarenyi" target="_blank">
+              <img
+                class="social-media"
+                src="resources/linkedin-icon.png"
+                alt="Linkedin"
+              />
+            </a>
+            <a
+              href="mailto:notkarenyi@gmail.com?subject=I saw your website!"
+              target="_blank"
+            >
+              <img
+                class="social-media"
+                src="resources/mail-icon.png"
+                alt="Email"
+              />
+            </a>
+          </div>
         </div>
-    </body>
+      </footer>
+    </div>
+  </body>
+
+  <script src="index.js"></script>
 </html>
