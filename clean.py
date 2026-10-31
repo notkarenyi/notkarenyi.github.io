@@ -1,54 +1,61 @@
 # Preprocess data to cut down on load time
 
-#%% imports
+# %% imports
 
 import os
 import pathlib
 import sys
 
 # https://github.com/pygraphviz/pygraphviz/issues/186
-if sys.platform == 'win32':
-    path = pathlib.Path(r'C:\Program Files\Graphviz\bin')
-    if path.is_dir() and str(path) not in os.environ['PATH']:
-        os.environ['PATH'] += f';{path}'
+if sys.platform == "win32":
+    path = pathlib.Path(r"C:\Program Files\Graphviz\bin")
+    if path.is_dir() and str(path) not in os.environ["PATH"]:
+        os.environ["PATH"] += f";{path}"
 
-import pandas as pd
-from datetime import datetime
-import networkx as nx
-import pygraphviz
-import plotly.graph_objects as go
 import pickle
+from datetime import datetime
+
+import networkx as nx
+import pandas as pd
+import plotly.graph_objects as go
+import pygraphviz
 
 sys.path.append(os.path.join(os.path.dirname(__file__), "app"))
 
+import os
+
 from utils import make_color_scale
 
-import os
 print(os.getcwd())
-if os.getcwd().endswith('app'):
-    os.chdir('..')
+if os.getcwd().endswith("app"):
+    os.chdir("..")
 
-#%% read and clean data
+# %% read and clean data
 
-df = pd.read_excel('resources/resume.xlsx',sheet_name='Graph',parse_dates=['Start','End'])
+df = pd.read_excel("resources/resume.xlsx", parse_dates=["Start", "End"])
 
-df['Start'] = df['Start'].fillna(datetime(2000,1,1))
-df['End'] = df['End'].fillna(datetime(2000, 1, 1))
-df['Interests'] = df['Interests'].fillna('N/A')
+df["Start"] = df["Start"].fillna(datetime(2000, 1, 1))
+df["End"] = df["End"].fillna(datetime(2000, 1, 1))
+df["Interests"] = df["Interests"].fillna("N/A")
 
-df = df.sort_values('Start')
-df['Dummy'] = 1
+df = df.sort_values("Start")
+df["Dummy"] = 1
 
-df['Title'] = df['Course/Role'] + '<br />' + df['Organization'] + '<br />' + df['Interests']
-df['Connection'] = [x.split(', ') if isinstance(x,str) else [] for x in df['Connection']]
-df = df.explode('Connection')
-df = df.sort_values('ID')
+df["Title"] = (
+    df["Course/Role"] + "<br />" + df["Organization"] + "<br />" + df["Interests"]
+)
+df["Connection"] = [
+    x.split(", ") if isinstance(x, str) else [] for x in df["Connection"]
+]
+df = df.explode("Connection")
+df = df.sort_values("ID")
 
-df.to_json('resources/resume.json',orient='records',date_format='iso')
+df.to_json("resources/resume.json", orient="records", date_format="iso")
 # print(df.loc[df['StartYear']==2023])
 # print(df.columns)
 
-#%% define functions
+# %% define functions
+
 
 def make_graph_data(df):
     """
@@ -57,24 +64,26 @@ def make_graph_data(df):
     Cite: https://medium.com/@harshkjoya/connecting-the-dots-creating-network-graphs-from-pandas-dataframes-with-networkx-9c4fb60089cf
     """
 
-    graph = df[['Title','ID','Connection','Interests']]
-    graph['ID'] = graph['ID'].astype('int64')
+    graph = df[["Title", "ID", "Connection", "Interests"]]
+    graph["ID"] = graph["ID"].astype("int64")
     # graph = graph.loc[graph['Interests']!='N/A']
 
-    graph = graph.rename(columns={
-        'Title':'label',
-        'ID':'source',
-        'Connection':'target',
-        'Interests': 'interests'
-    })
+    graph = graph.rename(
+        columns={
+            "Title": "label",
+            "ID": "source",
+            "Connection": "target",
+            "Interests": "interests",
+        }
+    )
 
-    edges = graph.loc[~graph['target'].isnull(),['source','target']]
-    edges['target'] = edges['target'].astype('int64')
+    edges = graph.loc[~graph["target"].isnull(), ["source", "target"]]
+    edges["target"] = edges["target"].astype("int64")
 
-    graph = graph.drop_duplicates('source')
+    graph = graph.drop_duplicates("source")
     G = nx.DiGraph()
-    G.add_nodes_from(graph['source'])
-    G.add_edges_from([(row['source'],row['target']) for i,row in edges.iterrows()])
+    G.add_nodes_from(graph["source"])
+    G.add_edges_from([(row["source"], row["target"]) for i, row in edges.iterrows()])
 
     nx.set_node_attributes(
         G, 
@@ -90,12 +99,13 @@ def make_graph_data(df):
     # Generate a layout (e.g., Kamada-Kawai layout)
     # pos = nx.kamada_kawai_layout(G)
     # pos = nx.nx_agraph.graphviz_layout(G)
-    pos = nx.nx_agraph.graphviz_layout(G,prog='twopi')
+    pos = nx.nx_agraph.graphviz_layout(G, prog="twopi")
 
     # Assign the layout to the 'pos' attribute of each node
-    nx.set_node_attributes(G, pos, 'pos')
+    nx.set_node_attributes(G, pos, "pos")
 
     return G
+
 
 def create_text(row):
     """
@@ -105,42 +115,44 @@ def create_text(row):
     row = row.fillna("")
 
     out = ""
-    out += f'<b>{row["Course/Role"]}</b>'
+    out += f"<b>{row['Course/Role']}</b>"
     out += f'<a href="{row["URL"]}" target="blank_">'
-    out += f'{row["Organization"]}</a>'
-    out += f'{row["Start"].month}/{row["Start"].year} - '
-    out += f'{row["End"].month}/{row["End"].year}'
+    out += f"{row['Organization']}</a>"
+    out += f"{row['Start'].month}/{row['Start'].year} - "
+    out += f"{row['End'].month}/{row['End'].year}"
 
     out += '<div class="bubbles">'
-    for col in ['Type','Interests','Skills','Technologies']:
-        bubbles = row[col].split(', ')
+    for col in ["Type", "Interests", "Skills", "Technologies"]:
+        bubbles = row[col].split(", ")
         if len([x for x in bubbles if len(x)]):
             for bubble in bubbles:
-                if bubble!='N/A':
+                if bubble != "N/A":
                     out += f'<span class="bubble">{bubble}</span>'
-    out += '</div>'  
+    out += "</div>"
 
-    if len(row['Award']):
+    if len(row["Award"]):
         out += f"<span>🏆 {row['Award']}</span>"
     out += f"<p>{row['Description']}</p>"
 
     # print(out)
     return out
 
+
 def make_gantt_data(df):
     """
     Clean data for Gantt chart
     """
-    
+
     # do not show coursework except associated with award
-    df = df.loc[(df['Type']!='student') | (len(df['Award'])>0)].sort_values('Start')
+    df = df.loc[(df["Type"] != "student") | (len(df["Award"]) > 0)].sort_values("Start")
 
-    df = df.loc[df['End']>datetime(2000,1,1)]
+    df = df.loc[df["End"] > datetime(2000, 1, 1)]
 
-    df = df.drop_duplicates('ID')
+    df = df.drop_duplicates("ID")
 
-    df['Text'] = df.apply(create_text, axis=1)
+    df["Text"] = df.apply(create_text, axis=1)
     return df
+
 
 def make_edge_trace(G):
     """
@@ -152,35 +164,37 @@ def make_edge_trace(G):
     edge_x = []
     edge_y = []
     for edge in G.edges():
-        xstart, ystart = G.nodes[edge[0]]['pos']
-        xend, yend = G.nodes[edge[1]]['pos']
+        xstart, ystart = G.nodes[edge[0]]["pos"]
+        xend, yend = G.nodes[edge[1]]["pos"]
         edge_x.append(xstart)
         edge_x.append(xend)
-        edge_x.append(None) # pick up pen
+        edge_x.append(None)  # pick up pen
         edge_y.append(ystart)
         edge_y.append(yend)
-        edge_y.append(None) # pick up pen
+        edge_y.append(None)  # pick up pen
 
     edge_trace = go.Scatter(
         showlegend=False,
-        x=edge_x, 
+        x=edge_x,
         y=edge_y,
-        line=dict(width=0.5, color='#888'),
-        hoverinfo='none',
+        line=dict(width=0.5, color="#888"),
+        hoverinfo="none",
         mode="lines+markers",
         # https://community.plotly.com/t/triangle-symbol-placed-at-the-end-of-a-line/81289/4
         marker={
-            'symbol':'arrow',
-            'angleref':"previous",
-            'size':5,
-            'standoff': 5,
-        }
+            "symbol": "arrow",
+            "angleref": "previous",
+            "size": 5,
+            "standoff": 5,
+        },
     )
 
     return edge_trace
 
+
 def get_degrees(G):
     return [G.degree(node) for node in G.nodes()]
+
 
 def make_node_trace(G):
     """
@@ -190,7 +204,7 @@ def make_node_trace(G):
     """
 
     # Get unique interests
-    unique_groups = list(set(nx.get_node_attributes(G, 'interests').values()))
+    unique_groups = list(set(nx.get_node_attributes(G, "interests").values()))
 
     # Map each interest to a color
     interest_colors = make_color_scale(unique_groups)
@@ -201,34 +215,35 @@ def make_node_trace(G):
     node_x = []
     node_y = []
     for node in G.nodes():
-        x, y = G.nodes[node]['pos']
+        x, y = G.nodes[node]["pos"]
         node_x.append(x)
         node_y.append(y)
 
     node_trace = go.Scatter(
         showlegend=False,
-        x=node_x, 
+        x=node_x,
         y=node_y,
-        mode='markers',
-        text=[G.nodes[node]['labels'] for node in G.nodes()],
-        hoverinfo='text',
+        mode="markers",
+        text=[G.nodes[node]["labels"] for node in G.nodes()],
+        hoverinfo="text",
         marker={
-            'size': [x**.8*3+8 for x in get_degrees(G)],
-            'line_width': 2,
-            'color': node_colors,
-            'opacity': 1,
-        }
+            "size": [x**0.8 * 3 + 8 for x in get_degrees(G)],
+            "line_width": 2,
+            "color": node_colors,
+            "opacity": 1,
+        },
     )
 
-    return node_trace, interest_colors 
+    return node_trace, interest_colors
 
-#%% store data
+
+# %% store data
 
 gantt = make_gantt_data(df)
-gantt.to_excel('app/gantt.xlsx',index=False)
+gantt.to_excel("app/gantt.xlsx", index=False)
 
 G = make_graph_data(df)
-edge_trace=make_edge_trace(G)
-node_trace,group_colors=make_node_trace(G)
-pickle.dump(edge_trace, open('app/edge_trace.pickle', 'wb'))
-pickle.dump((node_trace,group_colors), open('app/node_trace.pickle', 'wb'))
+edge_trace = make_edge_trace(G)
+node_trace, group_colors = make_node_trace(G)
+pickle.dump(edge_trace, open("app/edge_trace.pickle", "wb"))
+pickle.dump((node_trace, group_colors), open("app/node_trace.pickle", "wb"))
